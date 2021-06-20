@@ -1,0 +1,25 @@
+Part 1: Arrays And Classes
+------------------
+* Motivate by showing arrays in the COVID assignment
+1. Make a Person class with the local variables of the arrays
+2. Show how to make an array, show how printing out is null by default (fix this with dummy constructor)
+3. Make static variables for states
+4. Create a constructor that initializes with zero position and takes one parameter of whether they're moving or not
+
+
+Coding Exercise (2 points): Make the first 10 people infected, the last 10 people uninfected
+
+
+
+Part 2: Instance Methods
+--------------------------
+1. Filling in instance methods: create accessors for position/state/timeSick, create mutators makeSick(), makeBetter()
+2. Create a method to initialize with random position / do random walk
+3. Exercise: Create enactInfection method
+
+
+
+
+Part 3: Multiple classes
+--------------------------
+* Move the coordinate to a class

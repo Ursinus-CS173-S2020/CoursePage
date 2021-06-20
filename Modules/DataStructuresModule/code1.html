@@ -1,0 +1,244 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<!-- Header !-->
+	<head>
+		<title>Ursinus CS 173: Introduction To Computer Science, Spring 2020</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="../../assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="../../assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="../../assets/css/ie8.css" /><![endif]-->
+        <script type="text/javascript" src="../processing.min.js"></script>
+        <style>
+        .image_off, #home:hover .image_on{
+           display:none
+        }
+        .image_on, #home:hover .image_off{
+           display:block
+        }
+        #editor {
+            position: relative;
+            width: 700px;
+            height: 250px;
+        }
+        #mainEditor {
+            position: relative;
+            width: 700px;
+            height: 150px;
+        }
+        #feedbackText {
+            position: relative;
+            width: 700px;
+            height: 100px;
+        }
+
+        </style>
+
+        <script src="../ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../modules-common.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="../../index.html" class="logo"><strong>Ursinus CS 173: Introduction To Computer Science, Spring 2020</strong></a>
+								</header>
+<!-- End Header !-->
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h2>Data Structure Module Coding Exercise 1: ArrayLists </h2>
+									</header>
+
+                                <p>
+                                    <button onclick="window.location.href = 'video1.html';"> &lt--- Previous</button>
+                                    <button onclick="window.location.href = 'video2.html';">Next ---&gt </button>
+                                </p>
+                                <HR>
+
+                                    <p>
+                                        The <code>PrimitiveList.java</code> file below contains a version of the method we wrote in the video on the previous page to print out the elements of an <code>ArrayList</code> of Integers.  Please fill in the <code>circularShift()</code> method to remove the first element in the ArrayList, shift everything over by one to the left, and place the first element of the array in the last.  The main method sets up the following list
+                                            <pre>
+                                                0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
+                                            </pre>
+
+                                        Then, after calling circularShift twice, the result should look like this:
+
+                                            <pre>
+                                                2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 0 1
+                                            </pre>
+                                    </p>
+
+                                    <p>
+                                        <b>Please submit your name in the form that pops up when you have successfully completed this</b>.
+                                    </p>
+
+
+<div id="correctArea"></div>
+
+
+<p>
+<button type = "button" onclick = "runCode()">Run</button>
+</p>
+<h3>PrimitiveList.java</h3>
+
+
+<div id="editor">import java.util.ArrayList;
+
+/**
+* Shift all elements in an ArrayList of Integers over one to the left,
+* and place the element that used to be first to instead be at the end
+* of the list, without using any loops
+* @param arr ArrayList to modify
+*/
+public static void circularShift(ArrayList&ltInteger&gt arr) {
+    // TODO: Remove the first element in arr and place it at the end
+    // NOTE: All objects are passed "by reference" in Java, which
+    // means that changes you make to the objects in methods
+    // persist beyond the life of the method.  So whatever you do to this
+    // here, it will be printed out in main
+}
+
+
+/**
+* @param arr An ArrayList to print
+*/
+public static void printArrayList(ArrayList&ltInteger&gt arr) {
+    for (int i = 0; i < arr.size(); i++) {
+        System.out.print(arr.get(i));
+        if (i < arr.size() - 1) {
+            System.out.print(" ");
+        }
+    }
+}
+
+</div>
+<h3>Main</h3>
+<div id="mainEditor">ArrayList&ltInteger&gt mylist = new ArrayList&lt&gt();
+for (int i = 0; i < 20; i++) {
+    mylist.add(i);
+}
+circularShift(mylist);
+circularShift(mylist);
+circularShift(mylist);
+printArrayList(mylist);
+</div>
+<h3>Output</h3>
+<div id="feedbackText"></div>
+
+<canvas id="pscanvas"></canvas>
+
+
+<script>
+let canvas = document.getElementById("pscanvas");
+let correctArea = document.getElementById("correctArea");
+
+let editor = ace.edit("editor");
+editor.setFontSize(16);
+editor.session.setMode("ace/mode/java");
+
+let mainEditor = ace.edit("mainEditor");
+mainEditor.setFontSize(16);
+mainEditor.session.setMode("ace/mode/java");
+mainEditor.setReadOnly(true);
+
+let feedback = ace.edit("feedbackText");
+feedback.setFontSize(16);
+feedback.renderer.setShowGutter(false);
+
+
+function runCode() {
+    function removeTemplate(s) {
+        while (s.indexOf("<Integer>") > -1) {
+            s = s.replace("<Integer>", "");
+        }
+        while (s.indexOf("<>") > -1) {
+            s = s.replace("<>", "");
+        }
+        return s;
+    }
+
+
+    try {
+        let code = makeCode(editor.getValue(), mainEditor.getValue());
+        code = removeTemplate(code);
+        instance = new Processing(canvas, code);
+
+        fields = feedbackString.split(" ");
+        let validated = true;
+        if (fields.length == 20) {
+            for (let i = 0; i < 20; i++) {
+                if (parseInt(fields[i]) != (i+3)%20) {
+                    validated = false;
+                    break;
+                }
+            }
+        }
+        else {
+            validated = false;
+        }
+        
+        if (validated) {
+            correctArea.innerHTML = "<h3><font color = #00AA00>Correct!!</font></h3>";
+            correctArea.innerHTML += `
+            <iframe src = "https://ursinus.co1.qualtrics.com/jfe/form/SV_a9TWvWw4YyI9SEB" width=800 height=500>
+            `;
+        }
+        else {
+            correctArea.innerHTML = "<h3><font color = red>Try again</font></h3>";
+        }
+    }
+    catch(err) {
+        feedback.setValue("Error: " + err.message);
+    }
+
+}
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    </div> <!--Page-content-->
+                        </div> <!-- Inner-->
+                    </div> <!-- Main-->
+                </div> <!-- Wrapper-->
+<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/skel.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="../../assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="../../assets/js/main.js"></script>
+<!-- End Scripts -->
+	</body>
+</html>
+

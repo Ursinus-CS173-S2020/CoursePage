@@ -1,0 +1,248 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<!-- Header !-->
+	<head>
+		<title>Ursinus CS 173: Introduction To Computer Science, Spring 2020</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="../../assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="../../assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="../../assets/css/ie8.css" /><![endif]-->
+        <script type="text/javascript" src="../processing.min.js"></script>
+        <style>
+        .image_off, #home:hover .image_on{
+           display:none
+        }
+        .image_on, #home:hover .image_off{
+           display:block
+        }
+        #PersonEditor {
+            position: relative;
+            width: 700px;
+            height: 250px;
+        }
+        #mainEditor {
+            position: relative;
+            width: 700px;
+            height: 250px;
+        }
+        #feedbackText {
+            position: relative;
+            width: 700px;
+            height: 100px;
+        }
+
+        </style>
+
+        <script src="../ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../modules-common.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="../../index.html" class="logo"><strong>Ursinus CS 173: Introduction To Computer Science, Spring 2020</strong></a>
+								</header>
+<!-- End Header !-->
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h2>Classes Self-Study Module 2: Code Exercise 2</h2>
+									</header>
+
+                                <p>
+                                    <button onclick="window.location.href = 'video2.html';"> &lt--- Previous</button>
+                                </p>
+                                <HR>
+
+                                    <p>
+                                        The <code>Person.java</code> file below contains a slightly modified version of what wrote in the video on the previous page, with some stuff cut out that we don't need for this task.  Please fill in the <code>contactWith</code> instance method in the person class to infect this person if they are close enough in x and y to an infected person.  
+                                    </p>
+
+                                    <p>
+                                        The main method sets up 5 people on a grid, as shown below, and it infects the first person in the array.  It then loops through and executes the <code>contactWith</code> method using a distance of 1.1.  As you can see on the picture, this means that the people at index 1 and 4 should become infected.  The main method will print out the status of each person from indices 1 to 4.  So if you get this to work properly, you should see the string <code>SickHealthyHealthySick</code> in the output.
+                                    </p>
+
+                                    <img src = "Grid.svg">
+
+                                    <p>  
+                                        Once you've done this correctly, a window will pop up above the run button for you to submit your name, and doing so will earn you a participation point.  <b>Please submit this, and you will be finished this module!</b>
+                                    </p>
+
+
+<div id="correctArea"></div>
+
+
+<p>
+<button type = "button" onclick = "runCode()">Run</button>
+</p>
+<h3>Person.java</h3>
+
+
+<div id="PersonEditor">public class Person {
+    // The three states a person can be in
+    public static final int INFECTED = 0;
+    public static final int UNINFECTED = 1;
+    public static final int RECOVERED = 2;
+    
+    private double x, y;
+    private boolean isMoving;
+    private int state;
+    private int timeSick;
+    
+    public Person(boolean isMoving) {
+        state = UNINFECTED;
+        timeSick = 0;
+        this.isMoving = isMoving;
+        x = 0;
+        y = 0;
+    }
+    
+    /**
+     * Manually move this person to a particular position
+     * 
+     * @param x Position to set x
+     * @param y Position to set y
+     */
+    public void setPosition(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+    
+    public void contactWith(Person other, double dist) {
+        if (other.state == INFECTED && state == UNINFECTED) {
+            // Distance in x between me an other
+            double dx = Math.abs(other.x - x); 
+            // TODO: Compute distance in y
+            // TODO: If distance in x and distance in y
+            // are less than dist, then I become infected
+        }
+    }
+
+    public void isSick() {
+        return state == INFECTED;
+    }
+    
+    public void makeSick() {
+        state = INFECTED;
+    }
+}
+</div>
+<h3>Main</h3>
+<div id="mainEditor">Person[] people = new Person[5];
+int res = 200;
+for (int i = 0; i < people.length; i++) {
+    people[i] = new Person(true);
+}
+people[0].setPosition(0, 0);
+people[0].makeSick();
+people[1].setPosition(1, 0);
+people[2].setPosition(2, 2);
+people[3].setPosition(0, 2);
+people[4].setPosition(-1, -1);
+double dist = 1.1; // Infect all people within 1.1
+for (int i = 1; i < people.length; i++) {
+    people[i].contactWith(people[0], dist);
+    if (people[i].isSick()) {
+        System.out.print("Sick");
+    }
+    else {
+        System.out.print("Healthy");
+    }
+}
+</div>
+<h3>Output</h3>
+<div id="feedbackText"></div>
+
+<canvas id="pscanvas"></canvas>
+
+
+<script>
+let canvas = document.getElementById("pscanvas");
+let correctArea = document.getElementById("correctArea");
+
+let editor = ace.edit("PersonEditor");
+editor.setFontSize(16);
+editor.session.setMode("ace/mode/java");
+
+let mainEditor = ace.edit("mainEditor");
+mainEditor.setFontSize(16);
+mainEditor.session.setMode("ace/mode/java");
+mainEditor.setReadOnly(true);
+
+
+let feedback = ace.edit("feedbackText");
+feedback.setFontSize(16);
+feedback.renderer.setShowGutter(false);
+
+
+function runCode() {
+
+    try {
+        let code = makeCode(editor.getValue(), mainEditor.getValue());
+        instance = new Processing(canvas, code);
+        if (feedbackString.indexOf("SickHealthyHealthySick") > -1) {
+            correctArea.innerHTML = "<h3><font color = #00AA00>Correct!!</font></h3>";
+            correctArea.innerHTML += `
+            <iframe src = "https://ursinus.co1.qualtrics.com/jfe/form/SV_6ffFqNX2L8qQyQ5" width=800 height=500>
+            `;
+        }
+        else {
+            correctArea.innerHTML = "<h3><font color = red>Try again</font></h3>";
+        }
+    }
+    catch(err) {
+        correctArea.innerHTML = "<h3><font color = red>Try again (code does not compile; look at error window) </font></h3>";
+        feedback.setValue("Error: " + err.message);
+    }
+
+}
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    </div> <!--Page-content-->
+                        </div> <!-- Inner-->
+                    </div> <!-- Main-->
+                </div> <!-- Wrapper-->
+<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/skel.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="../../assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="../../assets/js/main.js"></script>
+<!-- End Scripts -->
+	</body>
+</html>
+

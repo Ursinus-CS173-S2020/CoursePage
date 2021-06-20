@@ -1,0 +1,278 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<!-- Header !-->
+	<head>
+		<title>Ursinus CS 173: Introduction To Computer Science, Spring 2020</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="../../assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="../../assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="../../assets/css/ie8.css" /><![endif]-->
+        <script type="text/javascript" src="../processing.min.js"></script>
+        <style>
+        .image_off, #home:hover .image_on{
+           display:none
+        }
+        .image_on, #home:hover .image_off{
+           display:block
+        }
+        #editor {
+            position: relative;
+            width: 700px;
+            height: 250px;
+        }
+        #editor2 {
+            position: relative;
+            width: 700px;
+            height: 250px;
+        }
+        #mainEditor {
+            position: relative;
+            width: 700px;
+            height: 100px;
+        }
+        #feedbackText {
+            position: relative;
+            width: 700px;
+            height: 100px;
+        }
+
+        </style>
+
+        <script src="../ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../modules-common.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="../../index.html" class="logo"><strong>Ursinus CS 173: Introduction To Computer Science, Spring 2020</strong></a>
+								</header>
+<!-- End Header !-->
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h2>Lab 10 Code</h2>
+									</header>
+
+                                <p>
+                                    <button onclick="window.location.href = 'video2.html';"> &lt--- Previous</button>
+                                </p>
+                                <HR>
+
+                                    <p>
+                                        Below is some of the code we wrote in the video to setup random arrays, as well as skeleton code for insertion sort.  The main method fills in a random array, prints that array, calls the <code>insertionSort</code> method, and then prints the result.  Please fill in the <code>swap</code> method to swap <code>arr[i]</code> with <code>arr[j]</code>.  Once this method works properly, your insertion sort code will properly sort the array.  At this point, a survey will pop up.  <b>Please input your name, and also copy in the code that you wrote in the <code>swap</code> method</b>
+                                    </p>
+
+                                    <h3>Hint</h3>
+                                    <p>
+                                        If you just say <code>arr[i] = arr[j]</code>, then that will do half of the swap, but now you've overwritten what <code>arr[i]</code> used to be, so you've lost the information you need to update <code>arr[j]</code>.  Try creating a temporary variable to store the value in <code>arr[i]</code> before you overwite it with what's in <code>arr[j]</code>.
+                                    </p>
+
+
+<div id="correctArea"></div>
+
+
+<p>
+<button type = "button" onclick = "runCode()">Run</button>
+</p>
+<h3>Array Utilities</h3>
+
+
+<div id="editor">/**
+* Create a random array of ints
+* @param N How many random numbers we want
+* @return An array with this many random numbers
+*/
+public static int[] getRandomArray(int N) {
+    int[] arr = new int[N];
+    for (int i = 0; i < N; i++) {
+        arr[i] = (int)(Math.random()*2*N);
+    }
+    return arr;
+}
+
+/**
+* Print out the elements of an array separated by spaces
+* @param arr An array of ints
+*/
+public static void printArray(int[] arr) {
+    for (int i = 0; i < arr.length; i++) {
+        System.out.print(arr[i]);
+        if (i < arr.length - 1) {
+            System.out.print(" ");
+        }
+    }
+    System.out.println("");
+}
+
+/**
+* Check to see if two arrays are equal
+* @param arr1 First array
+* @param arr2 Second array
+* @return True if all of the elements are equal
+*/
+public static boolean arraysEqual(int[] arr1, int[] arr2) {
+    boolean equal = true;
+    if (arr1.length == arr2.length) {
+        for (int i = 0; i < arr1.length && equal; i++) {
+            if (arr1[i] != arr2[i]) {
+                equal = false;
+            }
+        }
+    }
+    else {
+        equal = false;
+    }
+    return equal;
+}
+</div>
+<h3>Insertion Sort Code</h3>
+<div id = "editor2">/**
+* Swap the element at index i for the element at index j
+* element at index j
+* @param arr An array of ints
+* @param i First index
+* @param j Second index
+*/
+public static void swap(int[] arr, int i, int j) {
+    // TODO: Fill this in
+}
+
+/**
+* Implement the insertion sort algorithm to
+* sort the elements of an array in place
+* @param arr 
+*/
+public static void insertionSort(int[] arr) {
+    for (int i = 1; i < arr.length; i++) {
+        int j = i;
+        while (j >= 1 && arr[j] < arr[j-1]) {
+            swap(arr, j, j-1);
+            j--;
+        }
+    }
+}
+</div>
+<h3>Main</h3>
+<div id="mainEditor">int[] arr = getRandomArray(25);
+System.out.print("Original: ");
+printArray(arr);
+insertionSort(arr);
+System.out.print("Sorted: ");
+printArray(arr);</div>
+<h3>Output</h3>
+<div id="feedbackText"></div>
+
+<canvas id="pscanvas"></canvas>
+
+
+<script>
+let canvas = document.getElementById("pscanvas");
+let correctArea = document.getElementById("correctArea");
+
+let editor = ace.edit("editor");
+editor.setFontSize(16);
+editor.session.setMode("ace/mode/java");
+editor.setReadOnly(true);
+
+let editor2 = ace.edit("editor2");
+editor2.setFontSize(16);
+editor2.session.setMode("ace/mode/java");
+
+let mainEditor = ace.edit("mainEditor");
+mainEditor.setFontSize(16);
+mainEditor.session.setMode("ace/mode/java");
+mainEditor.setReadOnly(true);
+
+let feedback = ace.edit("feedbackText");
+feedback.setFontSize(16);
+feedback.renderer.setShowGutter(false);
+
+
+function runCode() {
+
+    try {
+        let code = makeCode(editor.getValue() + editor2.getValue(), mainEditor.getValue());
+        instance = new Processing(canvas, code);
+        let arr1 = feedbackString.split("\n")[0].split(" ");
+        let arr2 = feedbackString.split("\n")[1].split(" ");
+        for (let i = 1; i < arr1.length; i++) {
+            arr1[i-1] = parseInt(arr1[i]);
+            arr2[i-1] = parseInt(arr2[i]);
+        }
+        arr1.length = arr1.length - 1;
+        arr2.length = arr2.length - 1;
+        arr1.sort(function(a, b){return a-b});
+        console.log(arr1);
+        console.log(arr2);
+        let equal = true;
+        for (let i = 0; i < arr1.length && equal; i++) {
+            if (arr1[i] != arr2[i]) {
+                equal = false;
+            }
+        }
+        if (equal) {
+            correctArea.innerHTML = "<h3><font color = #00AA00>Correct!!</font></h3>";
+            correctArea.innerHTML += `
+            <iframe src = "https://ursinus.co1.qualtrics.com/jfe/form/SV_agbEWc9u8zWDIK9" width=800 height=500>
+            `;
+        }
+        else {
+            correctArea.innerHTML = "<h3><font color = red>Try again</font></h3>";
+        }
+    }
+    catch(err) {
+        feedback.setValue("Error: " + err.message);
+    }
+
+}
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    </div> <!--Page-content-->
+                        </div> <!-- Inner-->
+                    </div> <!-- Main-->
+                </div> <!-- Wrapper-->
+<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/skel.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="../../assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="../../assets/js/main.js"></script>
+<!-- End Scripts -->
+	</body>
+</html>
+

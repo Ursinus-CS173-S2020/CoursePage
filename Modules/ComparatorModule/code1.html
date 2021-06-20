@@ -1,0 +1,226 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<!-- Header !-->
+	<head>
+		<title>Ursinus CS 173: Introduction To Computer Science, Spring 2020</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="../../assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="../../assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="../../assets/css/ie8.css" /><![endif]-->
+        <script type="text/javascript" src="../processing.min.js"></script>
+        <style>
+        .image_off, #home:hover .image_on{
+           display:none
+        }
+        .image_on, #home:hover .image_off{
+           display:block
+        }
+        #editor {
+            position: relative;
+            width: 700px;
+            height: 250px;
+        }
+        #mainEditor {
+            position: relative;
+            width: 700px;
+            height: 100px;
+        }
+        #feedbackText {
+            position: relative;
+            width: 700px;
+            height: 100px;
+        }
+
+        </style>
+
+        <script src="../ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../modules-common.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="../../index.html" class="logo"><strong>Ursinus CS 173: Introduction To Computer Science, Spring 2020</strong></a>
+								</header>
+<!-- End Header !-->
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h2>Comparators and Sorting Self Study Module Coding Exercise 1 of 2 (1 Point)</h2>
+									</header>
+
+                                <p>
+                                    <button onclick="window.location.href = 'video1.html';"> &lt--- Previous</button>
+                                    <button onclick="window.location.href = 'code2.html';">Next ---&gt </button>
+                                </p>
+                                <HR>
+
+                                    <p>
+                                        You will now perform the first of two coding exercises related to this.  The <code>Car.java</code> file below contains what we wrote in the video on the previous page.  Please fill in the <code>compareTo()</code> instance method of this class to sort the cars <i>in descending order of date</i>.
+                                    </p>
+
+
+<div id="correctArea"></div>
+
+
+<p>
+<button type = "button" onclick = "runCode()">Run</button>
+</p>
+<h3>Car.java</h3>
+
+
+<div id="editor">import java.util.Arrays;
+
+public class Car implements Comparable {
+    private int year;
+    private String make;
+    private String model;
+    
+    // Constructor
+    public Car(int y, String make, String model) {
+        year = y;
+        this.make = make;
+        this.model = model;
+    }
+    
+    /**
+        * The comparator for this object
+        * @param objOther The other car
+        * @return  If this is less than the other, return a negative #
+        *          If this is greater than other, return a positive #
+        *          If they are equal, return 0
+        */
+    public int compareTo(Object objOther) {
+        Car other = (Car)objOther;
+        return 0; // TODO: Change this to sort in descending order by year
+    }
+    
+    public String toString() {
+        return year + " " + make + " " + model;
+    }
+}
+</div>
+<h3>Main</h3>
+<div id="mainEditor">Car[] cars = new Car[5];
+cars[0] = new Car(2020, "Tesla", "Model S");
+cars[1] = new Car(2010, "Honda", "Civic");
+cars[2] = new Car(2017, "Subaru", "Station Wagon");
+cars[3] = new Car(2017, "Porsche", "718 Cayman S.");
+cars[4] = new Car(2009, "Honda", "CRV");
+Arrays.sort(cars);
+for (int i = 0; i < cars.length; i++) {
+    System.out.println(cars[i]);
+}
+</div>
+<h3>Output</h3>
+<div id="feedbackText"></div>
+
+<canvas id="pscanvas"></canvas>
+
+
+<script>
+let canvas = document.getElementById("pscanvas");
+let correctArea = document.getElementById("correctArea");
+
+let editor = ace.edit("editor");
+editor.setFontSize(16);
+editor.session.setMode("ace/mode/java");
+
+let mainEditor = ace.edit("mainEditor");
+mainEditor.setFontSize(16);
+mainEditor.session.setMode("ace/mode/java");
+mainEditor.setReadOnly(true);
+
+let feedback = ace.edit("feedbackText");
+feedback.setFontSize(16);
+feedback.renderer.setShowGutter(false);
+
+
+function runCode() {
+
+    try {
+        let code = makeCode(editor.getValue(), mainEditor.getValue());
+        code = code.replace("Arrays.sort(cars)", "cars.sort(function(c1, c2) {return c1.compareTo(c2);});");
+        instance = new Processing(canvas, code);
+        let lines = feedbackString.split("\n");
+        let years = [];
+        for (let i = 0; i < lines.length; i++) {
+            let fields = lines[i].split(" ");
+            if (fields.length >= 3) {
+                years.push(parseInt(fields[0]));
+            }
+        }
+        console.log(years);
+        let yearsGT = [2020, 2017, 2017, 2010, 2009];
+        let validated = true;
+        for (let i = 0; i < years.length; i++) {
+            if (years[i] != yearsGT[i]) {
+                validated = false;
+            }
+        }
+        
+        if (validated) {
+            correctArea.innerHTML = "<h3><font color = #00AA00>Correct!!</font></h3>";
+            correctArea.innerHTML += `
+            <iframe src = "https://ursinus.co1.qualtrics.com/jfe/form/SV_0UH8QiJRWJWaj3L" width=800 height=500>
+            `;
+        }
+        else {
+            correctArea.innerHTML = "<h3><font color = red>Try again</font></h3>";
+        }
+    }
+    catch(err) {
+        feedback.setValue("Error: " + err.message);
+    }
+
+}
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    </div> <!--Page-content-->
+                        </div> <!-- Inner-->
+                    </div> <!-- Main-->
+                </div> <!-- Wrapper-->
+<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/skel.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="../../assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="../../assets/js/main.js"></script>
+<!-- End Scripts -->
+	</body>
+</html>
+

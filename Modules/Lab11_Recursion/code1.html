@@ -1,0 +1,209 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<!-- Header !-->
+	<head>
+		<title>Ursinus CS 173: Introduction To Computer Science, Spring 2020</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="../../assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="../../assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="../../assets/css/ie8.css" /><![endif]-->
+        <script type="text/javascript" src="../processing.min.js"></script>
+        <style>
+        .image_off, #home:hover .image_on{
+           display:none
+        }
+        .image_on, #home:hover .image_off{
+           display:block
+        }
+        #editor {
+            position: relative;
+            width: 700px;
+            height: 300px;
+        }
+        #mainEditor {
+            position: relative;
+            width: 700px;
+            height: 50px;
+        }
+        #feedbackText {
+            position: relative;
+            width: 700px;
+            height: 100px;
+        }
+
+        </style>
+
+        <script src="../ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../modules-common.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="../../index.html" class="logo"><strong>Ursinus CS 173: Introduction To Computer Science, Spring 2020</strong></a>
+								</header>
+<!-- End Header !-->
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h2>Lab 11: Recursion Code Part 1</h2>
+									</header>
+
+                                <p>
+                                    <button onclick="window.location.href = 'video1.html';"> &lt--- Previous</button>
+                                    <button onclick="window.location.href = 'video2.html';"> Next ---&gt</button>
+                                </p>
+                                <HR>
+
+                                    <p>
+                                        Fill in the <code>reverseString</code> method below to recursively compute the string in reverse. The <code>main()</code> method runs the code on "hello" and "stressed," and they should give "olleh" and "desserts," respectively (remember that when you're feeling stressed during finals week!).
+                                    </p>
+
+                                    <h3>Hints</h3>
+                                    <ul>
+                                        <li>Since <code>s.length()-1</code> is the last index of a string <code>s</code>, the last character of <code>s</code> can be extracted with <code>s.charAt(s.length()-1)</code></li>
+
+                                        <li>
+                                            Recall from chapter 2 that for a string <code>s</code>, <code>s.substring(a, b)</code> gives the substring of a string from index <code>a</code> to index <code>b</code>, <i>not including b</i>.  So, for instance, if <code>s = "stressed"</code>, then <code>s.substring(0, 7)</code> would yield the string "stresse".  In this case, index 7 is the last index, but we don't include that index.
+                                        </li>
+
+                                        <li>
+                                            If you get an error like <code>too much recursion</code>, this is the same as the stack overflow error we saw in the video.  This probably means that the string you're calling recursively isn't actually decreasing in length, so you never reach the stopping condition of an empty string, and your code goes on forever.  Check to make sure you're taking the right substring in your recursive call.
+                                        </li>
+                                    </ul>
+
+
+<div id="correctArea"></div>
+
+
+<p>
+<button type = "button" onclick = "runCode()">Run</button>
+</p>
+<h3>Recursion.java</h3>
+
+
+<div id="editor">public class Recursion {
+    /**
+    * Given a string, return the reverse of it
+    * Example) "hello", should return "olleh"
+    * "o" + reverseString("hell")
+    *    reverseString("hell") = "l" + reverseString("hel")
+    *       reverseString("hel") = "l" + reverseString("he")
+    *          reverseString("he") = "e" + reverseString("h")
+    *            reverseString("h") = "h" + reverseString("")
+    * @param s The input string
+    * @return The reverse of s
+    */
+    public String reverseString(String s) {
+        String result = "";
+        if (s.length() > 0) {
+            // TODO: Fill this in as the last character
+            // plus the reverse of all but the last character
+            
+        }
+        return result;
+    }
+}
+</div>
+
+<h3>Main</h3>
+<div id="mainEditor">Recursion r = new Recursion();
+System.out.println(r.reverseString("hello"));
+System.out.println(r.reverseString("stressed"));
+</div>
+<h3>Output</h3>
+<div id="feedbackText"></div>
+
+<canvas id="pscanvas"></canvas>
+
+
+<script>
+let canvas = document.getElementById("pscanvas");
+let correctArea = document.getElementById("correctArea");
+
+let editor = ace.edit("editor");
+editor.setFontSize(16);
+editor.session.setMode("ace/mode/java");
+
+let mainEditor = ace.edit("mainEditor");
+mainEditor.setFontSize(16);
+mainEditor.session.setMode("ace/mode/java");
+mainEditor.setReadOnly(true);
+
+let feedback = ace.edit("feedbackText");
+feedback.setFontSize(16);
+feedback.renderer.setShowGutter(false);
+
+
+function runCode() {
+
+    try {
+        let code = makeCode(editor.getValue(), mainEditor.getValue());
+        instance = new Processing(canvas, code);
+        let i1 = feedbackString.indexOf("olleh") ;
+        let i2 = feedbackString.indexOf("desserts") 
+        if (i1 > -1 && i2 > -1 && i2 > i1) {
+            correctArea.innerHTML = "<h3><font color = #00AA00>Correct!!</font></h3>";
+            correctArea.innerHTML += `
+            <iframe src = "https://ursinus.co1.qualtrics.com/jfe/form/SV_801y9DtnNOr9w21" width=800 height=500>
+            `;
+        }
+        else {
+            correctArea.innerHTML = "<h3><font color = red>Try again</font></h3>";
+        }
+    }
+    catch(err) {
+        feedback.setValue("Error: " + err.message);
+    }
+
+}
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    </div> <!--Page-content-->
+                        </div> <!-- Inner-->
+                    </div> <!-- Main-->
+                </div> <!-- Wrapper-->
+<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/skel.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="../../assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="../../assets/js/main.js"></script>
+<!-- End Scripts -->
+	</body>
+</html>
+

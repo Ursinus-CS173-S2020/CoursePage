@@ -1,0 +1,217 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<!-- Header !-->
+	<head>
+		<title>Ursinus CS 173: Introduction To Computer Science, Spring 2020</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="../../assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="../../assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="../../assets/css/ie8.css" /><![endif]-->
+        <script type="text/javascript" src="../processing.min.js"></script>
+        <style>
+        .image_off, #home:hover .image_on{
+           display:none
+        }
+        .image_on, #home:hover .image_off{
+           display:block
+        }
+        #editor {
+            position: relative;
+            width: 700px;
+            height: 250px;
+        }
+        #mainEditor {
+            position: relative;
+            width: 700px;
+            height: 100px;
+        }
+        #feedbackText {
+            position: relative;
+            width: 700px;
+            height: 100px;
+        }
+
+        </style>
+
+        <script src="../ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../modules-common.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="../../index.html" class="logo"><strong>Ursinus CS 173: Introduction To Computer Science, Spring 2020</strong></a>
+								</header>
+<!-- End Header !-->
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h2>Classes Self-Study Module 1: Code Exercise 1</h2>
+									</header>
+
+                                <p>
+                                    <button onclick="window.location.href = 'video1.html';"> &lt--- Previous</button>
+                                    <button onclick="window.location.href = 'video2.html';">Next ---&gt </button>
+                                </p>
+                                <HR>
+
+                                    <p>
+                                        The <code>Car.java</code> file below contains what we wrote in the video on the previous page.  Please fill in the <code>moveToRight()</code> instance method of this class.  It should add 1 to the <code>x</code> instance variable.  Note that you can access <code>x</code> by either typing <code>this.x</code> or simply by typing <code>x</code>, since there are no parameters that have a name conflict with this variable.
+                                    </p>
+
+                                    <p>
+                                        The main method creates a car, calls this method 20 times, and then uses the <code>printPosition()</code> method to print out the ordered pair for the position.  If you've done this properly and you hit the "run" button, it should print <code>20, 0</code> in the output.  <b>Once you've done this correctly, a window will pop up above the run button for you to submit your name, and doing so will earn you a participation point.  Please submit this before moving onto the next part of the module</b>.
+                                    </p>
+
+
+<div id="correctArea"></div>
+
+
+<p>
+<button type = "button" onclick = "runCode()">Run</button>
+</p>
+<h3>Car.java</h3>
+
+
+<div id="editor">public class Car {
+        private int year;
+        private String make;
+        private String model;
+        private double x; // x coordinate of car
+        private double y; // y coordinate of car
+        
+        // Constructor
+        public Car(int y, String make, String model) {
+            year = y;
+            this.make = make;
+            this.model = model;
+            resetPosition();
+        }
+        
+        /**
+         * This method moves the car to the right by 1 unit
+         */
+        public void moveToRight() {
+            // TODO: Fill in
+        }
+        
+        public void resetPosition() {
+            x = 0.0;
+            y = 0.0;
+        }
+        
+        public void printPosition() {
+            System.out.println(x + ", " + y);
+        }
+        
+        public void printMakeModel() {
+            System.out.println(make + " " + model);
+        }
+    }
+</div>
+<h3>Main</h3>
+<div id="mainEditor">Car chrisCar = new Car(2010, "Honda", "Civic");
+// Move the car to the right by 20 units
+for (int i = 0; i < 20; i++) {
+    chrisCar.moveToRight();
+}
+chrisCar.printPosition();
+</div>
+<h3>Output</h3>
+<div id="feedbackText"></div>
+
+<canvas id="pscanvas"></canvas>
+
+
+<script>
+let canvas = document.getElementById("pscanvas");
+let correctArea = document.getElementById("correctArea");
+
+let editor = ace.edit("editor");
+editor.setFontSize(16);
+editor.session.setMode("ace/mode/java");
+
+let mainEditor = ace.edit("mainEditor");
+mainEditor.setFontSize(16);
+mainEditor.session.setMode("ace/mode/java");
+mainEditor.setReadOnly(true);
+
+let feedback = ace.edit("feedbackText");
+feedback.setFontSize(16);
+feedback.renderer.setShowGutter(false);
+
+
+function runCode() {
+
+    try {
+        let code = makeCode(editor.getValue(), mainEditor.getValue());
+        instance = new Processing(canvas, code);
+        let pos = feedbackString.split(",");
+        for (let i = 0; i < pos.length; i++) {
+            pos[i] = parseFloat(pos[i]);
+        }
+        if (pos[0] == 20 && pos[1] == 0) {
+            correctArea.innerHTML = "<h3><font color = #00AA00>Correct!!</font></h3>";
+            correctArea.innerHTML += `
+            <iframe src = "https://ursinus.co1.qualtrics.com/jfe/form/SV_6g1UVPZLutScOA5" width=800 height=500>
+            `;
+        }
+        else {
+            correctArea.innerHTML = "<h3><font color = red>Try again</font></h3>";
+        }
+    }
+    catch(err) {
+        feedback.setValue("Error: " + err.message);
+    }
+
+}
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    </div> <!--Page-content-->
+                        </div> <!-- Inner-->
+                    </div> <!-- Main-->
+                </div> <!-- Wrapper-->
+<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/skel.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="../../assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="../../assets/js/main.js"></script>
+<!-- End Scripts -->
+	</body>
+</html>
+

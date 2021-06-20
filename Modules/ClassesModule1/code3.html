@@ -1,0 +1,233 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<!-- Header !-->
+	<head>
+		<title>Ursinus CS 173: Introduction To Computer Science, Spring 2020</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="../../assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="../../assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="../../assets/css/ie8.css" /><![endif]-->
+        <script type="text/javascript" src="../processing.min.js"></script>
+        <style>
+        .image_off, #home:hover .image_on{
+           display:none
+        }
+        .image_on, #home:hover .image_off{
+           display:block
+        }
+        #editor {
+            position: relative;
+            width: 700px;
+            height: 250px;
+        }
+        #mainEditor {
+            position: relative;
+            width: 700px;
+            height: 100px;
+        }
+        #feedbackText {
+            position: relative;
+            width: 700px;
+            height: 100px;
+        }
+
+        </style>
+
+        <script src="../ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../modules-common.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="../../index.html" class="logo"><strong>Ursinus CS 173: Introduction To Computer Science, Spring 2020</strong></a>
+								</header>
+<!-- End Header !-->
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h2>Classes Self-Study Module 1: Code Exercise 3</h2>
+									</header>
+
+                                <p>
+                                    <button onclick="window.location.href = 'video3.html';"> &lt--- Previous</button>
+                                </p>
+                                <HR>
+
+                                    <p>
+                                        The <code>Car.java</code> file below contains we've been writing in this module so far.  There's a static variable called <code>before2015</code> that should hold the number of car objects that have been created with a year earlier than 2015.  Your next mini task is to add some code to the constructor to increment this static variable every time a car with a year earlier than 2015 is added.
+                                    </p>
+                                    
+                                    <p>
+                                    The main method sets up four cars, two of which were made before 2015.  It then calls the <code>getNumCarsBefore2015()</code> method to return and print this static variable.  If your code works, it should simply print out <code>2</code>
+                                    </p>
+
+                                    <p>
+                                        <b>Hints:</b>
+                                        <ul>
+                                            <li>You will definitely need an if statement to make sure the car is old enough!
+                                            </li>
+                                        </ul>
+                                    </p>
+                                    Once you've done this correctly, a window will pop up above the run button for you to submit your name, and doing so will earn you a participation point.  <b>Please submit this before closing this module</b>.  At this point, you will be finished module 1!  Please post on Microsoft Teams if you have any questions, and have a look at Chapter 8 of our book for more examples.
+                                    </p>
+
+
+<div id="correctArea"></div>
+
+
+<p>
+<button type = "button" onclick = "runCode()">Run</button>
+</p>
+<h3>Car.java</h3>
+
+
+<div id="editor">public class Car {
+    private int year;
+    private String make;
+    private String model;
+    private double x; // x coordinate of car
+    private double y; // y coordinate of car
+
+    // Will count how many cars are made before 2015
+    private static int before2015 = 0; 
+
+    private static int getNumCarsBefore2015() {
+        return before2015;
+    }
+    
+    // Constructor
+    public Car(int y, String make, String model) {
+        year = y;
+        this.make = make;
+        this.model = model;
+        resetPosition();
+        // TODO: Add something here that adds 1 to 
+        // the "before2015 variable" if a car before 2015
+        // has been added
+    }
+    
+    /**
+     * This method moves the car to the right by 1 unit
+     */
+    public void moveToRight() {
+        x++;
+    }
+    
+    public void resetPosition() {
+        x = 0.0;
+        y = 0.0;
+    }
+    
+    public void printPosition() {
+        System.out.println(x + ", " + y);
+    }
+    
+    public String toString() {
+        String ret = "";
+        // TODO: Fill this in
+        return ret; 
+    }
+}
+</div>
+<h3>Main</h3>
+<div id="mainEditor">Car chrisCar = new Car(2010, "Honda", "Civic");
+Car johnCar = new Car(2018, "Subaru", "Station Wagon");
+Car celiaCar = new Car(2009, "Honda", "CRV");
+Car elonCar = new Car(2020, "Tesla", "Model S");
+System.out.println(Car.getNumCarsBefore2015());
+</div>
+<h3>Output</h3>
+<div id="feedbackText"></div>
+
+<canvas id="pscanvas"></canvas>
+
+
+<script>
+let canvas = document.getElementById("pscanvas");
+let correctArea = document.getElementById("correctArea");
+
+let editor = ace.edit("editor");
+editor.setFontSize(16);
+editor.session.setMode("ace/mode/java");
+
+let mainEditor = ace.edit("mainEditor");
+mainEditor.setFontSize(16);
+mainEditor.session.setMode("ace/mode/java");
+mainEditor.setReadOnly(true);
+
+let feedback = ace.edit("feedbackText");
+feedback.setFontSize(16);
+feedback.renderer.setShowGutter(false);
+
+
+function runCode() {
+
+    try {
+        let code = makeCode(editor.getValue(), mainEditor.getValue());
+        instance = new Processing(canvas, code);
+        if (parseInt(feedbackString) == 2) {
+            correctArea.innerHTML = "<h3><font color = #00AA00>Correct!!</font></h3>";
+            correctArea.innerHTML += `
+            <iframe src = "https://ursinus.co1.qualtrics.com/jfe/form/SV_2bDN9nLLNPoQLkh" width=800 height=500>
+            `;
+        }
+        else {
+            correctArea.innerHTML = "<h3><font color = red>Try again</font></h3>";
+        }
+    }
+    catch(err) {
+        feedback.setValue("Error: " + err.message);
+    }
+
+}
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    </div> <!--Page-content-->
+                        </div> <!-- Inner-->
+                    </div> <!-- Main-->
+                </div> <!-- Wrapper-->
+<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/skel.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="../../assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="../../assets/js/main.js"></script>
+<!-- End Scripts -->
+	</body>
+</html>
+

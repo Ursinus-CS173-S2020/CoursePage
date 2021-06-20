@@ -1,0 +1,26 @@
+* Talk about functions that call themselves
+
+
+* Start with factorial example
+
+* Module exercise: reverse a string
+
+* Show naive Fibonacci example
+
+* Draw out diagrams for factorial and fibonacci, explaning tail recursion and branching
+
+* Module exercise: Fibonacci example with lookup table
+
+
+
+        int result = 1;
+        if (fibMem.containsKey(N)) {
+            result = fibMem.get(N);
+        }
+        else {
+            if (N > 1) {
+                result = fib(N-1) + fib(N-2);
+            }
+            fibMem.put(N, result);
+        }
+        return result;

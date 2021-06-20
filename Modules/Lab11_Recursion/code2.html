@@ -1,0 +1,229 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<!-- Header !-->
+	<head>
+		<title>Ursinus CS 173: Introduction To Computer Science, Spring 2020</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="../../assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="../../assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="../../assets/css/ie8.css" /><![endif]-->
+        <script type="text/javascript" src="../processing.min.js"></script>
+        <style>
+        .image_off, #home:hover .image_on{
+           display:none
+        }
+        .image_on, #home:hover .image_off{
+           display:block
+        }
+        #editor {
+            position: relative;
+            width: 700px;
+            height: 300px;
+        }
+        #mainEditor {
+            position: relative;
+            width: 700px;
+            height: 50px;
+        }
+        #feedbackText {
+            position: relative;
+            width: 700px;
+            height: 100px;
+        }
+
+        </style>
+
+        <script src="../ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../modules-common.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="../../index.html" class="logo"><strong>Ursinus CS 173: Introduction To Computer Science, Spring 2020</strong></a>
+								</header>
+<!-- End Header !-->
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h2>Lab 11: Recursion Code Part 2: Dynamic Programming</h2>
+									</header>
+
+                                <p>
+                                    <button onclick="window.location.href = 'video3.html';"> &lt--- Previous</button>
+                                    <button onclick="window.location.href = 'video4.html';"> Next ---&gt</button>
+                                </p>
+                                <HR>
+
+                                    <p>
+                                        Your job below is to change the <code>fib</code> method so that it checks to see if a particular Fibonacci number has been saved in memory before trying to compute it.  If it's already been saved, simply return what's in memory.  The <code>main</code> method computes <code>fib(20)</code> and <code>fib(30)</code>, and by default, it outputs the following stats:
+<pre>
+fib(20) = 10946, counts = 21891
+fib(30) = 1346269, counts = 2692537
+</pre>
+
+                                        But once you start using the memory properly, you'll get these stats instead, which are <b>way</b> more efficient
+
+<pre>
+fib(20) = 10946, counts = 39
+fib(30) = 1346269, counts = 21
+</pre>
+
+                                        In fact, now computing <code>fib(30)</code> takes even fewer than the 30 steps we would have done by hand, because we remembered some of the steps we did when computing <code>fib(20)</code> right before that.
+                                    </p>
+
+                                    <h3>Hints</h3>
+                                    <ul>
+                                        <li>Recall that to see if a key is in a HashMap <code>map</code>, you say <code>map.containsKey(key)</code>, which returns <code>true</code> if the key is in the map and <code>false</code> otherwise.  So you'd want to check the memory by saying something like <code>fibMem.containsKey(N)</code>.  You should use the result of this in an if statement</li>
+
+                                        <li>
+                                            Recall that to retrieve values from the hash map, you use the <code>get(key)</code> method.
+                                        </li>
+                                    </ul>
+
+
+<div id="correctArea"></div>
+
+
+<p>
+<button type = "button" onclick = "runCode()">Run</button>
+</p>
+<h3>Recursion.java</h3>
+
+
+<div id="editor">import java.util.HashMap;
+
+public class Recursion {
+    private HashMap&ltInteger, Integer&gt fibMem;
+    public static int counts = 0;
+    
+    public static void resetCounts() {
+        counts = 0;
+    }
+
+    public Recursion() {
+        fibMem = new HashMap&lt&gt();
+    }
+
+    public int fib(int N) {
+        counts++; // Keep this here so it counts correctly
+        // TODO: If the result is already
+        // in memory, do not compute it here.
+        // Instead, get it from memory
+        int result = 1;
+        if (N > 1) {
+            result = fib(N-1) + fib(N-2);
+        }
+        fibMem.put(N, result);
+        return result;
+    }
+}
+</div>
+
+<h3>Main</h3>
+<div id="mainEditor">Recursion r = new Recursion();
+int N = 20;
+Recursion.resetCounts();
+System.out.print("fib("+N+") = " + r.fib(N));
+System.out.println(", counts = " + Recursion.counts);
+N = 30;
+Recursion.resetCounts();
+System.out.print("fib("+N+") = " + r.fib(N));
+System.out.println(", counts = " + Recursion.counts);
+</div>
+<h3>Output</h3>
+<div id="feedbackText"></div>
+
+<canvas id="pscanvas"></canvas>
+
+
+<script>
+let canvas = document.getElementById("pscanvas");
+let correctArea = document.getElementById("correctArea");
+
+let editor = ace.edit("editor");
+editor.setFontSize(16);
+editor.session.setMode("ace/mode/java");
+
+let mainEditor = ace.edit("mainEditor");
+mainEditor.setFontSize(16);
+mainEditor.session.setMode("ace/mode/java");
+mainEditor.setReadOnly(true);
+
+let feedback = ace.edit("feedbackText");
+feedback.setFontSize(16);
+feedback.renderer.setShowGutter(false);
+
+
+function runCode() {
+
+    try {
+        let code = makeCode(removeTemplate(editor.getValue()), mainEditor.getValue());
+        instance = new Processing(canvas, code);
+        let i1 = feedbackString.indexOf("fib(20) = 10946, counts = 39") ;
+        let i2 = feedbackString.indexOf("fib(30) = 1346269, counts = 21") 
+        if (i1 > -1 && i2 > -1 && i2 > i1) {
+            correctArea.innerHTML = "<h3><font color = #00AA00>Correct!!</font></h3>";
+            correctArea.innerHTML += `
+            <iframe src = "https://ursinus.co1.qualtrics.com/jfe/form/SV_4ZK7ie7GL9Pxvvv" width=800 height=500>
+            `;
+        }
+        else {
+            correctArea.innerHTML = "<h3><font color = red>Try again</font></h3>";
+        }
+    }
+    catch(err) {
+        feedback.setValue("Error: " + err.message);
+    }
+
+}
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    </div> <!--Page-content-->
+                        </div> <!-- Inner-->
+                    </div> <!-- Main-->
+                </div> <!-- Wrapper-->
+<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/skel.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="../../assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="../../assets/js/main.js"></script>
+<!-- End Scripts -->
+	</body>
+</html>
+

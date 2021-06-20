@@ -1,0 +1,12 @@
+* Motivate by showing spaghetti code defining same properties for different cars
+
+
+
+* Define "encapsulation" (put a mixture inside a capsule)
+
+* "Properties and things it can do"
+* Car: drive/reverse
+
+* Talk about new
+
+* Show updating score

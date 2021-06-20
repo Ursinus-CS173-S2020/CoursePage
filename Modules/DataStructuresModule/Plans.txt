@@ -1,0 +1,10 @@
+* Show ArrayList on Cars.  Show adding/removing
+* Show ArrayList on primitive types
+* Exercise: Use an ArrayList to shift a queue
+
+HashMap:
+* Show making a hash map of names to cars
+* Show looking up
+* Show removing
+* Show how to get a list of keys
+

@@ -1,0 +1,42 @@
+L1: Exercise 2.3 in ThinkJava, plus making intentional errors
+A1: ASCII Art, Geometric Formulas
+
+L2. Month Names, isALeapYear
+A2. Financial aid calculation, with string formatting
+
+
+A3. Doomsday Calculation
+https://www.timeanddate.com/date/doomsday-weekday.html
+https://codereview.stackexchange.com/questions/220455/calculate-the-day-when-date-is-given-as-input-using-the-doomsday-algorithm
+https://cs.anu.edu.au/courses/comp6700/labs/lab-3/
+L3. Counting vowels (extra credit: removing vowels)
+
+L4: Sum all evens/odds between a certain range, make isAPrime (latter extra credit if the class is weaker)
+A4: The Chaos Game
+
+A5: DAFX (Midterm Assignment)
+fillNoise()
+makeEchoes()
+makePluck()
+And consoleUI for playing sounds (extra credit making a sequence)
+
+L5: Weighted average computation, filtering arrays
+
+L6: 2-Armed Bandit
+
+
+A5. Spy Games: XOR Encryption, LFSR
+
+
+2D Arrays: Steganography OR Automated ASCII Art
+
+
+Classes Assignments:
+Collaborative Filtering
+(everyone in the class submits their tastes)
+
+The N Body Problem
+
+Markov Generator
+
+Ethics in CS (Look at Stanford "complexity theory" course and on Coursera, also on wt.social tech for good)

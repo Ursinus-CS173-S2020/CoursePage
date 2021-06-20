@@ -1,0 +1,176 @@
+SECTION
+Week 0
+
+
+LECTURE
+Course Sneak Preview, HTML, What Is Computer Science?  Computers Vs. Humans
+
+<ul><li><a href = "https://docs.google.com/presentation/d/1JFMa2svoSIC7l_ABs-dxXZ4_-BJaQj7MWVuXvW0dSUs/edit?usp=sharing">Slides from today</a></li></ul>
+SECTION
+Week 1
+
+
+LECTURE
+Intro To Java: Data Types / Variables / Arithmetic Operations
+
+<ul><li><a href = "https://github.com/Ursinus-CS173-S2020/Class1">Click here</a> to view the code from today</li><li>Reading: Horstmann Ch. 1, 2.1, 2.2</li></ul>
+LECTURE
+Finish Types, User Input, Strings
+
+<ul><li><a href = "https://github.com/Ursinus-CS173-S2020/Week1">Click here</a> to view the code from today</li><li>Reading: Horstmann Ch. 2.3, 2.5</li><li><a href = "https://www.geek.com/games/why-gandhi-is-always-a-warmongering-jerk-in-civilization-1608515/">What caused Gandhi's insatiable bloodlust in Civilization?</li> </ul>
+SECTION
+Week 2
+
+
+LECTURE
+Decisions: If Statements, Begin Boolean Statements
+
+<ul><li>Reading: Horstmann Ch. 3</li><li><a href = "https://github.com/Ursinus-CS173-S2020/Week2">Click here</a> to view the code for this week</li><li><a href = "https://www.youtube.com/watch?v=OyjNy0IwbcA">Washington Monument During 8/23/2011 earthquake</a></li></ul>
+LECTURE
+Boolean Statements, DeMorgan's Law, Begin Methods
+
+
+SECTION
+Week 3
+
+
+LECTURE
+Methods
+
+<ul><li><a href = "https://github.com/Ursinus-CS173-S2020/Week3/">Code for this week</a></li><li>Methods Reading: Horstmann Ch. 5 (except 5.9)</li></ul>
+LECTURE
+Methods Practice, Programs from Scratch
+
+<ul><li><a href = "../Software/index.html#instructions">Instructions for starting NetBeans projects from scratch</a></li></ul>
+SECTION
+Week 4
+
+
+LECTURE
+While Loops / Experiments with Chance
+
+<ul><li>Loops Reading: Horstmann Ch. 4</li><li><a href = "https://www.youtube.com/watch?v=n1SJ-Tn3bcQ">Derren Brown 10 heads in a row</a></li><li><a href = "https://math.temple.edu/~paulos/oldsite/scam.html">The Stock Market Scam</a></li><li>Code from this week <a href = "https://github.com/Ursinus-CS173-S2020/HW4_ChaosGame/tree/master/src/chaos">in the HW4 repo</a></li></ul>
+LECTURE
+Drawing with Loops, Random Walks, For Loops
+
+<ul><li><a href = "https://www.youtube.com/watch?v=eo6F28M7Iio">Random Walk Pokemon</a> program by Dr. Tralie</a></li></ul>
+SECTION
+Week 5
+
+
+LECTURE
+Strings And Loops, Begin Arrays
+
+<ul><li><a href = "https://github.com/Ursinus-CS173-S2020/Week5">Code from this week</a></li><li>Reading for This Week: Horstmann Ch. 6.1</li></ul>
+LECTURE
+Loops And Arrays, Begin Digital Audio
+
+
+SECTION
+Week 6
+
+
+LECTURE
+Continue Digital Audio, Sawtooth Waves, Do While Loops
+
+<ul><li>Reading for This Week: Horstmann Ch. 6.3 - 6.6</li></ul>
+LECTURE
+do-while Loops, Seeded Random Number Generators
+
+
+SECTION
+Week 7
+
+
+LECTURE
+Corona Cancelled
+
+
+LECTURE
+Corona Cancelled
+
+<a href = "../style.html">Style Guide</a> Out
+SECTION
+Week 8
+
+
+LECTURE
+Binary, Hex, ASCII
+
+<ul><li>Videos for This Week<ol><li><a href = "https://web.microsoftstream.com/video/6a7b0d58-986b-4549-83ac-f5b98bd301dc">Binary/Hexadecimal</a> (Watch before Monday)</li><li><a href = "https://web.microsoftstream.com/video/ebb3c142-bebd-4d22-8526-5fc1c406a1d4">Bitwise Operators</a> (Watch on Tuesday)</li><li><a href = "https://web.microsoftstream.com/video/8512a78d-32e5-4157-a41e-eca025e21c47">Linear Feedback Shift Registers</a> (Watch before Wednesday)</li></ol></li>  <li>Lecture Recordings <ul><li><a href = "https://web.microsoftstream.com/video/512adf16-f018-4b17-a59d-b6bf60f51baf">Section A</a>    </ul> <li><a href = "https://github.com/Ursinus-CS173-S2020/Week8_Binary/">Code for This Week</a><BR><BR></li><li>Number System Conversion Pratice Apps<ul><li><a href = "../Lectures/Week8_Binary/BinaryBase10.html">Binary <==> Base 10</a></li><li><a href = "../Lectures/Week8_Binary/HexBase10.html">Hex <==> Base 10</a></li><li><a href = "../Lectures/Week8_Binary/BinaryHex.html">Binary <==> Hex</a></li></ul></li><li><ul>Other Binary Apps<li><a href = "../Lectures/Week8_Binary/CardGame.html">Binary Card Game</a></li><li><a href = "../Lectures/Week8_Binary/Clock.html">Binary Clock</a></li></ul></li><li><ul>Other Resources<li><a href = "http://html-color-codes.com/">HTML Color Codes</li><li><a href = "http://www.asciitable.com/">ASCII Table</li></ul></ul>
+LECTURE
+Bitwise Operators, XOR Encryption, Linear Feedback Shift Registers
+
+<ul>     <li>Lecture Recordings  <ul><li><a href = "https://web.microsoftstream.com/video/9821339c-7efb-4fd9-8d63-0a29b205b3c0">Section A</a></li><li><a href = "https://web.microsoftstream.com/video/09487b26-e66c-4247-a12a-0b2ed14da590">Section B</a></li></li></ul>  </li>      <li>Practice Apps<ul><li><a href = "../Lectures/Week8_Binary/Bitwise.html">Bitwise Operators Practice App</a></li><li><a href = "../Lectures/Week8_Binary/LFSR.html">LFSR Simulator App</a></li></ul></li><li><ul>Other Resources<li><a href = "https://www.geeksforgeeks.org/bitwise-operators-in-java/">Reading on bitwise operators in Java</li></ul></li></ul>
+SECTION
+Week 9
+
+
+LECTURE
+2D Arrays / RGB Images
+
+<ul><li>Reading for This Week: Horstmann Ch. 6.8</li><li>Code for this week can be found in the <a href = "https://github.com/Ursinus-CS173-S2020/HW7_ASCIIArt/archive/master.zip">HW7 ASCII Art Repository</a></li><li>Videos for the week <ol><li><a href = "https://web.microsoftstream.com/video/a18cba66-fa30-4f01-a7d8-4453782aae6b">2D Arrays / RGB Images</a> (Watch Before Monday) </li></ol> </li><li>Lecture Recordings  <ul><li><a href = "https://web.microsoftstream.com/video/e90b8ccb-e832-4ae7-8f98-90a219c3ad78">Section A</a></li><li><a href = "https://web.microsoftstream.com/video/c34ee76b-751c-4086-a1aa-4c71c2044284">Section B</a></li></li></ul> </li> </ul>
+LECTURE
+Lab 8 Code Roundup, Assignment 6 Concept Work
+
+<ul><li><a href = "https://github.com/Ursinus-CS173-S2020/Coderoundup_Lab8">Code for lab 8 code roundup</a></li><li>Lecture Recordings <ul> <li><a href = "https://web.microsoftstream.com/video/c5cbf9c2-3b64-4c34-9888-32261247a316">Section A</a></li><li><a href = "https://web.microsoftstream.com/video/9981cc4d-1db1-4898-863a-72d98f3fd07c">Section B</a></li>  </ul></li></ul>
+SECTION
+Week 10
+
+
+LECTURE
+Assignment Workshopping
+
+<ul><li><a href = "https://web.microsoftstream.com/video/5a455454-84db-48c5-917c-bbc8c72d45c7">HW6 Help Video</a></li></ul>
+LECTURE
+Assignment Workshopping
+
+
+SECTION
+Week 11
+
+
+LECTURE
+Classes And Objects
+
+<ul><li>Reading for This Week: Horstmann Ch. 8</li></ul>
+LECTURE
+Multiple Classes
+
+
+SECTION
+Week 12
+
+
+LECTURE
+Workshopping
+
+
+LECTURE
+Comparators And Sorting
+
+<ul><li>Reading: Horstmann 9.6.3</li></ul>
+SECTION
+Week 13
+
+
+LECTURE
+Intro To Data Structures: ArrayLists / HashMaps
+
+<ul><li>Reading: Horstmann 6.8</li></ul>
+LECTURE
+Intro To Algorithms: Sorting
+
+
+SECTION
+Week 14
+
+
+LECTURE
+Recursion / Dynamic Programming / Merge Sort
+
+
+LECTURE
+Computer Ethics
+
+

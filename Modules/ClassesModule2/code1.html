@@ -1,0 +1,218 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<!-- Header !-->
+	<head>
+		<title>Ursinus CS 173: Introduction To Computer Science, Spring 2020</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="../../assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="../../assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="../../assets/css/ie8.css" /><![endif]-->
+        <script type="text/javascript" src="../processing.min.js"></script>
+        <style>
+        .image_off, #home:hover .image_on{
+           display:none
+        }
+        .image_on, #home:hover .image_off{
+           display:block
+        }
+        #PersonEditor {
+            position: relative;
+            width: 700px;
+            height: 250px;
+        }
+        #mainEditor {
+            position: relative;
+            width: 700px;
+            height: 100px;
+        }
+        #feedbackText {
+            position: relative;
+            width: 700px;
+            height: 100px;
+        }
+
+        </style>
+
+        <script src="../ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../modules-common.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="../../index.html" class="logo"><strong>Ursinus CS 173: Introduction To Computer Science, Spring 2020</strong></a>
+								</header>
+<!-- End Header !-->
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h2>Classes Self-Study Module 2: Code Exercise 1</h2>
+									</header>
+
+                                <p>
+                                    <button onclick="window.location.href = 'video1.html';"> &lt--- Previous</button>
+                                    <button onclick="window.location.href = 'video2.html';">Next ---&gt </button>
+                                </p>
+                                <HR>
+
+                                    <p>
+                                        The <code>Person.java</code> file below contains what we wrote in the video on the previous page.  Please fill in the main method below that to initialize an array of 20 people.  The first 20 people should be moving, and the last 10 people should not.  The main method finishes off by looping through the array and printing a <b>1</b> if the person is moving and a <b>0</b> if the person is not.  So, if you have done this correctly, you should see <b>11111111110000000000</b> pop up in the output window.
+                                    </p>
+
+                                    <p>  
+                                        <b>Once you've done this correctly, a window will pop up above the run button for you to submit your name, and doing so will earn you a participation point.  Please submit this before moving onto the next part of the module</b>.
+                                    </p>
+
+
+<div id="correctArea"></div>
+
+
+<p>
+<button type = "button" onclick = "runCode()">Run</button>
+</p>
+<h3>Person.java</h3>
+
+
+<div id="PersonEditor">public class Person {
+    // The three states a person can be in
+    public static final int INFECTED = 0;
+    public static final int UNINFECTED = 1;
+    public static final int RECOVERED = 2;
+    
+    private double x, y;
+    private boolean isMoving;
+    private int state;
+    private int timeSick;
+    
+    public Person(boolean isMoving) {
+        x = 0;
+        y = 0;
+        state = UNINFECTED;
+        timeSick = 0;
+        this.isMoving = isMoving;
+    }
+    
+    public boolean checkIsMoving() {
+        return isMoving;
+    }
+    
+    public String toString() {
+        String ret = "healthy";
+        if (state == INFECTED) {
+            ret = "sick";
+        }
+        return ret;
+    }
+}
+</div>
+<h3>Main</h3>
+<div id="mainEditor">Person[] people = new Person[20];
+for (int i = 0; i < people.length; i++) {
+    // TODO: Initialize the first 10 people
+    // to be moving, and the last 10 people to be still
+}
+for (int i = 0; i < people.length; i++) {
+    if (people[i].checkIsMoving()) {
+        System.out.print(1);
+    }
+    else {
+        System.out.print(0);
+    }
+}
+</div>
+<h3>Output</h3>
+<div id="feedbackText"></div>
+
+<canvas id="pscanvas"></canvas>
+
+
+<script>
+let canvas = document.getElementById("pscanvas");
+let correctArea = document.getElementById("correctArea");
+
+let editor = ace.edit("PersonEditor");
+editor.setFontSize(16);
+editor.session.setMode("ace/mode/java");
+editor.setReadOnly(true);
+
+let mainEditor = ace.edit("mainEditor");
+mainEditor.setFontSize(16);
+mainEditor.session.setMode("ace/mode/java");
+
+
+let feedback = ace.edit("feedbackText");
+feedback.setFontSize(16);
+feedback.renderer.setShowGutter(false);
+
+
+function runCode() {
+
+    try {
+        let code = makeCode(editor.getValue(), mainEditor.getValue());
+        instance = new Processing(canvas, code);
+        if (feedbackString.indexOf("11111111110000000000") > -1) {
+            correctArea.innerHTML = "<h3><font color = #00AA00>Correct!!</font></h3>";
+            correctArea.innerHTML += `
+            <iframe src = "https://ursinus.co1.qualtrics.com/jfe/form/SV_6rlFCYwSKqMSZmd" width=800 height=500>
+            `;
+        }
+        else {
+            correctArea.innerHTML = "<h3><font color = red>Try again</font></h3>";
+        }
+    }
+    catch(err) {
+        correctArea.innerHTML = "<h3><font color = red>Try again (code does not compile; look at error window) </font></h3>";
+        feedback.setValue("Error: " + err.message);
+    }
+
+}
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    </div> <!--Page-content-->
+                        </div> <!-- Inner-->
+                    </div> <!-- Main-->
+                </div> <!-- Wrapper-->
+<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/skel.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="../../assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="../../assets/js/main.js"></script>
+<!-- End Scripts -->
+	</body>
+</html>
+

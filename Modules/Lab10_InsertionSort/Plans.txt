@@ -1,0 +1,11 @@
+* Write code to generate a random array
+
+* Write code to print an array
+
+* Show Arrays.sort, and print
+
+* Pivot to insertion sort animation, talk through it
+
+* Start writing code for the loops
+
+* 

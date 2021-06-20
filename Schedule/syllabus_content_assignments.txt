@@ -1,0 +1,150 @@
+Raffle!!
+
+2020-05-06
+<a href = "../Modules/ClassesModule1/video1.html">Self Study Module 1: Classes</a> Out
+
+2020-04-13
+Self Study Module 1 Due
+
+2020-04-16
+<a href = "../Assignments/HW0">Homework 0: Warmup</a> Out
+
+2020-01-22
+Homework 0 Due
+
+2020-01-26
+<a href = "../Labs/Lab1">Lab 1: Kepler's Third Law</a>
+
+2020-01-28
+Lab 1 Due
+
+2020-01-31
+<a href = "../Assignments/HW1">Assignment 1: Evergreen Field Trip</a> Out
+
+2020-01-28
+Assignment 1 Due<HR>
+
+2020-02-03
+<a href = "../Labs/Lab2_LeapYears">Lab 2: Leap Years, JUnit</a>
+
+2020-02-04
+Lab 2 Due
+
+2020-02-07
+<a href = "../Assignments/HW2_FinancialAidCalculation">Assignment 2: Financial Aid Calculation</a> Out
+
+2020-02-03
+Assignment 2 Due<HR>
+
+2020-02-10
+<a href = "../Assignments/HW3_WeekdayCalculator">Assignment 3: Weekday Calculator</a> Out
+
+2020-02-10
+Assignment 3 Due
+
+2020-02-17
+Lab 3: Weekday Calculator Workshopping / Java's Debugger (No Offical Lab Submission This Week)
+
+2020-02-11
+<HR><a href = "../Assignments/HW4_ChaosGame">Assignment 4: The Chaos Game</a> Out
+
+2020-02-17
+<a href = "../Labs/Lab4_EpochOverflow">Lab 4: Epoch Time Overflow</a>
+
+2020-02-18
+Lab 4 Due
+
+2020-02-21
+Assignment 4 Due
+
+2020-02-25
+<a href = "../Labs/Lab5_Arrays">Lab 5: Weighted Average, Min Elements</a>
+
+2020-02-25
+Lab 5 Due
+
+2020-02-28
+<a href = "../Assignments/HW5_GuitarStringSynth">Assignment 5: Guitar String Synthesis</a> Out
+
+2020-02-29
+<a href = "../Labs/Lab6_Filtering">Lab 6: Audio Filtering</a>
+
+2020-03-03
+Lab 6 Due
+
+2020-03-06
+Assignment 5 Due
+
+2020-03-06
+<a href = "../Labs/Lab7_COVID19">Lab 7: Epidemic Spreading / Flattening The Curve</a> Out
+
+2020-03-16
+Lab 7 Due<HR>
+
+2020-03-23
+<a href = "../Labs/Lab8_BinaryStrings">Lab 8: Binary Strings</a> Out
+
+2020-03-24
+Lab 8 Due
+
+2020-03-30
+<a href = "../Assignments/HW6_PseudoRandomCrypto">Assignment 6: Spy Games</a> Out
+
+2020-03-27
+<a href = "https://github.com/Ursinus-CS173-S2020/CodeRoundup1">Code Roundup 1</a> Due
+
+2020-03-27
+Assignment 6 Due
+
+2020-04-08
+<a href = "../Labs/Lab9_TicTacToe">Lab 9: Tic Tac Toe</a> Out
+
+2020-03-31
+<HR><a href = "../Assignments/HW7_ASCIIArt">Assignment 7: ASCII Art</a> Out
+
+2020-03-30
+Lab 9 Due
+
+2020-04-17
+Code Roundup 1 Wrap-Up Video Due
+
+2020-04-20
+Assignment 7 Due
+
+2020-04-24
+<a href = "../Assignments/HW8_NintendoAmerica">Assignment 8: Nintendo America</a> Out
+
+2020-04-26
+Assignment 8 Due
+
+2020-05-08
+<a href = "../Modules/ClassesModule2/video1.html">Self Study Module 2: Classes</a> Due
+
+2020-04-21
+<a href = "../Modules/ComparatorModule/video1.html">Self Study Module 3: Comparators And Sorting</a> Due
+
+2020-04-26
+<a href = "../Modules/DataStructuresModule/video1.html">Self Study Module 4: Data Structures</a> Due
+
+2020-04-28
+<a href = "../Modules/Lab10_InsertionSort/video1.html">Lab 10: Insertion Sort</a> Out
+
+2020-04-30
+<a href = "../Modules/Lab11_Recursion/video1.html">Lab 11: Recursion And Merge Sort</a> Out
+
+2020-05-01
+Lab 10 Due
+
+2020-05-04
+Lab 11 Due
+
+2020-05-08
+Book Survey 1 Due on Canvas
+
+2020-01-28
+Book Survey 2 Due on Canvas
+
+2020-02-04
+<HR>Book Survey 3 Due on Canvas
+
+2020-02-10
