@@ -1,0 +1,187 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<!-- Header !-->
+	<head>
+		<title>Ursinus CS 173: Introduction To Computer Science, Spring 2020</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="../../assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="../../assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="../../assets/css/ie8.css" /><![endif]-->
+        <style>
+        .image_off, #home:hover .image_on{
+           display:none
+        }
+        .image_on, #home:hover .image_off{
+           display:block
+        }
+        </style>
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="../../index.html" class="logo"><strong>Ursinus CS 173: Introduction To Computer Science, Spring 2020</strong></a>
+								</header>
+<!-- End Header !-->
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h1>Lab 4: Epoch Time Overflow</h1>
+									</header>
+
+									<div id="page-content">
+									    
+
+                                    <h2>Overview</h2>
+
+                                    <p>
+                                        There was a lot of scare and hype leading up to the year 2000 because of the so-called <a href = "https://www.nationalgeographic.org/encyclopedia/Y2K-bug/">"Y2K Bug"</a>.  Early computers had severely limited storage space, so programmers used only 2 digits to store the year, and it was assumed that the full year would be 19XX, where XX where the two digits.  But as the year 2000 approached, people realized that most software with this assumption would suddenly assume it was the year 1900, which is a particularly big problem, for example, in banking software that computes interest rates.  
+                                        
+                                    <p>
+                                        Due to the <a href = "https://www.youtube.com/watch?v=jKYivs6ZLZk">diligent work of countless programmers</a> updating legacy software, this never materialized into a major crisis.  However, there is an even bigger, more subtle problem lurking on the horizon.  Another common scheme for storing time is so-called "<a href = "https://en.wikipedia.org/wiki/Unix_time">Unix Time</a>" or "Epoch Time."  In this scheme, every timestamp is represented as an integer, which is the number of seconds that have elapsed since midnight on December 1, 1970.  For example, the due date of this lab, 11:59PM on Friday 2/21/2020, is <code>1582329540</code>.  As you may recall from week 1 of the course, there are limits to the possible values that can be stored by different variable types.  In particular, if one uses the a 32-bit integer <code>int</code> type in Java to store Unix time, this will lead to <i>overflow</i> within the next 20 years, <b>and the time will suddenly jump negative</b> back to the early 1900s.  Thus, the problems will be very similar to the Y2K bug, though possibly more far-reaching (every embedded device in cars, planes, buildings, etc is at risk).  I expect we will see an FDR-esque public works project to update infrastructure in the years leading up to this problem.
+                                    </p>
+
+                                    <p>
+                                        <b>NOTE: </b>  A similar problem happens with GPS devices nearly ever 20 years (most recently in 2019), because they store the number of weeks elapsed since 1980 as a 10-bit unsigned integer.  <a href = "https://www.theverge.com/2019/3/8/18255847/gps-week-rollover-issue-2019-garmin-tomtom-devices-affected/">Click here</a> to read more about this.
+                                    </p>
+
+
+
+                                    <h2>Code To Write</h2>
+                                    <p>
+                                        Your job in this assignment will be to pinpoint the exact year during which Unix time will overflow.  You should write a void method <code>printEpochOverflowYear()</code> that prints the year of overflow, and then call this method from your main function (<a href = "../../Software">click here</a> to review how to create a project from scratch in NetBeans).  The easiest way to do this is to start at 0 seconds at the beginning of 1970, and then to loop through subsequent years, counting the number of seconds that go by each year as you go along.  As soon as the seconds go negative, you know you've overflowed, and the loop should terminate.  <i>To receive full marks, you must also take into consideration whether a particular year is a leap year when determining the number of seconds to add</i>.  Of course, you may copy and paste in the leap year method you wrote in <a href = "../Lab2_LeapYears">lab 2</a> to help with this.
+                                    </p>
+
+                                    <h2>Extra Credit (+2)</h2>
+                                    <p>
+                                        To double your score on the lab, write a method <code>printEpochOverflowDay()</code> which prints the exact date in month/day/year format at which the overflow happens.  The easiest way to count time at this level of granularity is to have several nested loops.  The inner loop should count days, the middle loop should count months, and the outer loop should count years.  To help with the months loop, you should write a helper method <code>int getDaysInMonth(int month, boolean leap)</code> which returns the number of days in a particular month, factoring in whether it's a leap year.
+                                    </p>
+
+                                    <h2>What To Submit</h2>
+                                    <p>
+                                        You must submit a .zip file with your project to Canvas.  <a href = "../../Software/index.html#zip">Click here</a> to review how to export your project as a .zip file.
+                                    </p>    
+                                    
+                                    </div>
+                            </div>
+						</div>
+<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="../../index.html">General</a></li>
+										<li><a href = "../../Software/index.html">Software</a></li>
+										<li><a href = "../../Schedule/index.html">Schedule</a></li>
+										<li><a href = "../../style.html">Style Guide</a></li>
+                                        <li>
+											<span class="opener">Labs</span>
+											<ul>
+												<li><a href = "../../Labs/index.html">Main Labs Page</a></li>
+												<li>
+													<ul>
+                                                        <li><a href = "../../Labs/Lab1/index.html">Lab1: Kepler's Third Law</a></li>
+                                                        <li><a href = "../../Labs/Lab2_LeapYears/index.html">Lab2: Leap Years and JUnit</a></li>
+                                                        <li><a href = "../../Labs/Lab4_EpochOverflow/index.html">Lab4: Epoch Time Overflow</a></li>
+                                                        <li><a href = "../../Labs/Lab5_Arrays/index.html">Lab5: Weighted Average, Min Index</a></li>
+                                                        <li><a href = "../../Labs/Lab6_Filtering/index.html">Lab6: Audio Filtering</a></li>
+                                                        <li><a href = "../../Labs/Lab7_COVID19/index.html">Lab7: Epidemic Spreading / Flattening The Curve</a></li>
+                                                        <li><a href = "../../Labs/Lab8_BinaryStrings/index.html">Lab8: Binary Strings</a></li>
+                                                        <li><a href = "../../Labs/Lab9_TicTacToe/index.html">Lab9: Tic Tac Toe</a></li>
+                                                        <li><a href = "../../Modules/Lab10_InsertionSort/video1.html">Lab10: Insertion Sort</a></li>
+                                                        <li><a href = "../../Modules/Lab11_Recursion/video1.html">Lab11: Recursion And Merge Sort</a></li>
+                                                    </ul>
+												</li>
+											</ul>
+										</li>
+                                        <li>
+											<span class="opener">Assignments</span>
+											<ul>
+												<li><a href = "../../Assignments/index.html">Main Assignments Page</a></li>
+												<li>
+													<ul>
+                                                        <li><a href = "../../Assignments/HW0/index.html">HW0: Warmup</a></li>
+                                                        <li><a href = "../../Assignments/HW1/index.html">HW1: Evergreen Field Trip</a></li>
+                                                        <li><a href = "../../Assignments/HW2_FinancialAidCalculation/index.html">HW2: Financial Aid Calculation</a></li>
+                                                        <li><a href = "../../Assignments/HW3_WeekdayCalculator/index.html">HW3: Weekday Calculator</a></li>
+                                                        <li><a href = "../../Assignments/HW4_ChaosGame/index.html">HW4: The Chaos Game</a></li>
+                                                        <li><a href = "../../Assignments/HW5_GuitarStringSynth/index.html">HW5: Guitar String Synthesis</a></li>
+                                                        <li><a href = "../../Assignments/HW6_PseudoRandomCrypto/index.html">HW6: Spy Games</a></li>
+                                                        <li><a href = "../../Assignments/HW7_ASCIIArt/index.html">HW7: ASCII Art</a></li>
+                                                        <li><a href = "../../Assignments/HW8_NintendoAmerica/index.html">HW8: Nintendo America</a></li>
+                                                    </ul>
+												</li>
+											</ul>
+										</li>
+										<!--<li><a href = "../../Raffle/index.html">Raffle</a></li>!-->
+									</ul>
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<div class="mini-posts">
+										Announcements		
+										<ul>
+										<li><a href = "../../Assignments/HW7_ASCIIArt/artcontest.html">Art contest submissions</a> for <a href = "../../Assignments/HW7_ASCIIArt/index.html">HW7</a> are up!</li>
+										</ul>								
+                                    </div>
+								</section>
+
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; <a href = "http://www.ctralie.com">Christopher J. Tralie</a>. All rights reserved.  Contact chris.tralie@gmail.com. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+			
+            <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+            <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>		
+			
+            <!-- Start of StatCounter Code -->
+            <script type="text/javascript">
+            var sc_project=7309088; 
+            var sc_invisible=1; 
+            var sc_security="f655b56d"; 
+            </script>
+            <script type="text/javascript"
+            src="http://www.statcounter.com/counter/counter.js"></script>
+            <noscript><div class="statcounter"><a title="free hit counter"
+            href="http://statcounter.com/" target="_blank"><img class="statcounter"
+            src="http://c.statcounter.com/7309088/0/f655b56d/1/" alt="free hit
+            counter"></a></div></noscript>
+            <!-- End of StatCounter Code -->
+<!-- End Sidebar !-->
+
+<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/skel.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="../../assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="../../assets/js/main.js"></script>
+<!-- End Scripts -->
+	</body>
+</html>
+

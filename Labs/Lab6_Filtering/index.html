@@ -1,0 +1,281 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<!-- Header !-->
+	<head>
+		<title>Ursinus CS 173: Introduction To Computer Science, Spring 2020</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="../../assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="../../assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="../../assets/css/ie8.css" /><![endif]-->
+        <style>
+        .image_off, #home:hover .image_on{
+           display:none
+        }
+        .image_on, #home:hover .image_off{
+           display:block
+        }
+        </style>
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="../../index.html" class="logo"><strong>Ursinus CS 173: Introduction To Computer Science, Spring 2020</strong></a>
+								</header>
+<!-- End Header !-->
+
+							<!-- Content -->
+								<p>
+									<header class="main">
+                                        <h2>Lab 6: Audio Filtering</h2>
+                                        <h3>Due Friday 3/6/2020</h3>
+									</header>
+
+									<div id="page-content">
+									    
+
+                                    <h2>Overview</h2>
+                                    <p>
+                                        The purpose of this lab is to give students more practice with arrays and loops in Java by implementing a "filtering" method, in which parts of an audio clip are removed based on different criteria.
+                                    </p>
+
+                                    <h2>Code</h2>
+                                    <p>
+                                        The code for this assignment can be found in the <a href = "https://github.com/Ursinus-CS173-S2020/HW5_GuitarStringSynth/archive/master.zip">homework 5 repository</a>.  You will be editing the file <a href = "https://github.com/Ursinus-CS173-S2020/HW5_GuitarStringSynth/blob/master/src/guitarstring/AudioFiltering.java"><code>AudioFiltering.java</code></a>
+                                    </p>
+
+                                    
+
+
+                                    <h2>Overview</h2>
+                                    <p>
+                                        As <a href = "../../Assignments/HW5_GuitarStringSynth/index.html#background">we have seen</a>, digital audio can be represented as an array of doubles between -1 and 1, which we refer to as <i>samples</i>.  In this assignment, you will fill in a method that takes in a sequence of audio samples <code>x</code> and creates a new array of audio samples <code>y</code> which is a subset of <code>x</code>.  There are three options, and you must implement one.  Each option consists of the following steps:
+                                        <ol>
+                                            <li>Count the number of samples in <code>x</code> that are above or below a certain threshold ("energy" for loudness filtering or "zero crossings" for vowel/consonant filtering).  This will be the size of the array <code>y</code></li>
+                                            <li>
+                                                Create an array <code>y</code> of the appropriate size.
+                                            </li>
+                                            <li>
+                                                Copy over the values from <code>x</code> to <code>y</code> that exceed a threshold.
+                                            </li>
+                                        </ol>
+                                        Below is more information about what the thresholds are for the three different options:
+                                    </p>
+
+                                    <h2>Option 1: Loudness Filtering</h2>
+                                    <p>
+                                        Your first option is to fill in the function 
+                                    </p>
+                                    <p>
+                                        <code>public static double[] filterLoudness(double[] x, int win, double cutoff)</code>
+                                    </p>
+                                    <p>
+                                        This method should return an array <code>y</code> where all of the quiet regions have been removed.  The first line of this function has been filled in for you:
+                                    </p>
+                                    <p>
+                                    <code>
+                                        double[] energy = ArrayUtils.getLocalEnergy(x, win);
+                                    </code>
+                                    </p>
+                                    <p>
+                                        This line creates an array <code>energy</code> which is parallel to <code>x</code>.  In particular, <code>energy[i]</code> holds a number between 0 and 1 which is the mean of the square of the audio samples in <code>x</code> between indices <code>i-win</code> and <code>i+win</code> (<a href = "https://github.com/Ursinus-CS173-S2020/HW5_GuitarStringSynth/blob/a0fc6b83c60bf233ff62b8f188c61d9060cd526f/src/guitarstring/ArrayUtils.java#L47">Click here</a> to see the implementation details if you're curious, but you can treat that as a black box for the purposes of this assignment).  <code>energy[i]</code> is higher if the audio samples in <code>x</code> around index <code>i</code> are louder, and lower otherwise.  Let's say, for example, that we have the following audio:
+                                    </p>
+                                    <audio controls>
+                                        <source src="femalecountdown.mp3" type="audio/mpeg">
+                                      Your browser does not support the audio element.
+                                      </audio> 
+                                    <p>
+                                        Below is a plot that shows the original samples of <code>x</code> (top plot), followed by the energy array (middle plot).  The regions in which the person is speaking have higher energy, and the regions between speech has lower energy.  If we choose a cutoff of 0.005 in energy (shown as the dotted line), and we only fill in samples in y that are above this cutoff, then we get the following audio (which is also shown as the bottom plot)
+                                    </p>
+                                    <p>
+                                        <audio controls>
+                                            <source src="loudness.mp3" type="audio/mpeg">
+                                          Your browser does not support the audio element.
+                                          </audio> 
+                                    </p>
+
+                                    <img src = "Loudness.png">
+
+
+
+
+
+
+                                    <h2>Option 2: Consonant Filtering</h2>
+                                    <p>
+                                        Your second option is to fill in the function 
+                                    </p>
+                                    <p>
+                                        <code>public static double[] filterZCS(double[] x, int win, int maxzcs)</code>
+                                    </p>
+                                    <p>
+                                        This method should return an array <code>y</code> where all of the vowels have been removed from the audio.  The first line of this function has been filled in for you:
+                                    </p>
+                                    <p>
+                                    <code>
+                                        int[] allzcs = ArrayUtils.getZeroCrossings(x, win);
+                                    </code>
+                                    </p>
+                                    <p>
+                                        This line creates an array <code>allzcs</code> which is parallel to <code>x</code>.  In particular, <code>allzcs[i]</code> holds the number of <i>zero crossings</i> in <code>x</code> between indices <code>i-win</code> and <code>i+win</code> (<a href = "https://github.com/Ursinus-CS173-S2020/HW5_GuitarStringSynth/blob/a0fc6b83c60bf233ff62b8f188c61d9060cd526f/src/guitarstring/ArrayUtils.java#L73">Click here</a> to see the implementation details if you're curious, but you can treat that as a black box for the purposes of this assignment).  Generally, <code>allzcs[i]</code> is higher if <code>x[i]</code> is in the middle of a consonant, and it is lower otherwise.  This is because consonants are <i>higher frequency</i> than vowels, which means they have a smaller period (i.e. they go through more cycles in the same amount of time, which means they cross the x axis more).  Let's say, for example, that we have the same audio clip:
+                                    </p>
+                                    <audio controls>
+                                        <source src="femalecountdown.mp3" type="audio/mpeg">
+                                      Your browser does not support the audio element.
+                                      </audio> 
+                                    <p>
+                                        If we create a new array <code>y</code> in which the zero crossings in a window of size 4001 around <code>x</code> must be at least 150, we get the following audio
+                                    </p>
+                                    <p>
+                                        <audio controls>
+                                            <source src="consonants.mp3" type="audio/mpeg">
+                                          Your browser does not support the audio element.
+                                          </audio> 
+                                    </p>
+                                    <p>
+                                        Below is a plot that shows how this happens.  As before, the original audio is up top, and the filtered audio is at the bottom.  The middle plot shows the zero crossings counted in windows of size 4001 around each sample, and a threshold of 150 is drawn as a dotted line.  As an example, consider the circled region around the letter "six."  The zero crossings peak around <b>s</b> and <b>x</b>, but they dip around <b>i</b>.
+                                    </p>
+                                    <p>
+                                        <img src = "Consonants.png">
+                                    </p>
+
+
+                                <h2>Option 3: Vowel Filtering</h2>
+                                <p>
+                                    You can also choose to create a method which is almost identical to the consonant filtering method, but where you only keep samples if the zero crossings are <b>below</b> a certain amount.  Instead of keeping the consonants, this will keep the vowels.  For example, if we create a new array <code>y</code> in which the zero crossings in a window of size 4001 around <code>x</code> must be <i>at most</i> 150, we get the following audio
+                                </p>
+                                <p>
+                                    <audio controls>
+                                        <source src="vowels.mp3" type="audio/mpeg">
+                                      Your browser does not support the audio element.
+                                      </audio> 
+                                </p>
+
+
+                                    <h2>What To Submit</h2>
+                                    <p>
+                                        You must submit the file <code>Lab5.java</code> to Canvas.  Please indicate as a comment which of the three options you chose to implement.
+                                    </p>    
+                                    
+                                    </div>
+                            </div>
+						</div>
+<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="../../index.html">General</a></li>
+										<li><a href = "../../Software/index.html">Software</a></li>
+										<li><a href = "../../Schedule/index.html">Schedule</a></li>
+										<li><a href = "../../style.html">Style Guide</a></li>
+                                        <li>
+											<span class="opener">Labs</span>
+											<ul>
+												<li><a href = "../../Labs/index.html">Main Labs Page</a></li>
+												<li>
+													<ul>
+                                                        <li><a href = "../../Labs/Lab1/index.html">Lab1: Kepler's Third Law</a></li>
+                                                        <li><a href = "../../Labs/Lab2_LeapYears/index.html">Lab2: Leap Years and JUnit</a></li>
+                                                        <li><a href = "../../Labs/Lab4_EpochOverflow/index.html">Lab4: Epoch Time Overflow</a></li>
+                                                        <li><a href = "../../Labs/Lab5_Arrays/index.html">Lab5: Weighted Average, Min Index</a></li>
+                                                        <li><a href = "../../Labs/Lab6_Filtering/index.html">Lab6: Audio Filtering</a></li>
+                                                        <li><a href = "../../Labs/Lab7_COVID19/index.html">Lab7: Epidemic Spreading / Flattening The Curve</a></li>
+                                                        <li><a href = "../../Labs/Lab8_BinaryStrings/index.html">Lab8: Binary Strings</a></li>
+                                                        <li><a href = "../../Labs/Lab9_TicTacToe/index.html">Lab9: Tic Tac Toe</a></li>
+                                                        <li><a href = "../../Modules/Lab10_InsertionSort/video1.html">Lab10: Insertion Sort</a></li>
+                                                        <li><a href = "../../Modules/Lab11_Recursion/video1.html">Lab11: Recursion And Merge Sort</a></li>
+                                                    </ul>
+												</li>
+											</ul>
+										</li>
+                                        <li>
+											<span class="opener">Assignments</span>
+											<ul>
+												<li><a href = "../../Assignments/index.html">Main Assignments Page</a></li>
+												<li>
+													<ul>
+                                                        <li><a href = "../../Assignments/HW0/index.html">HW0: Warmup</a></li>
+                                                        <li><a href = "../../Assignments/HW1/index.html">HW1: Evergreen Field Trip</a></li>
+                                                        <li><a href = "../../Assignments/HW2_FinancialAidCalculation/index.html">HW2: Financial Aid Calculation</a></li>
+                                                        <li><a href = "../../Assignments/HW3_WeekdayCalculator/index.html">HW3: Weekday Calculator</a></li>
+                                                        <li><a href = "../../Assignments/HW4_ChaosGame/index.html">HW4: The Chaos Game</a></li>
+                                                        <li><a href = "../../Assignments/HW5_GuitarStringSynth/index.html">HW5: Guitar String Synthesis</a></li>
+                                                        <li><a href = "../../Assignments/HW6_PseudoRandomCrypto/index.html">HW6: Spy Games</a></li>
+                                                        <li><a href = "../../Assignments/HW7_ASCIIArt/index.html">HW7: ASCII Art</a></li>
+                                                        <li><a href = "../../Assignments/HW8_NintendoAmerica/index.html">HW8: Nintendo America</a></li>
+                                                    </ul>
+												</li>
+											</ul>
+										</li>
+										<!--<li><a href = "../../Raffle/index.html">Raffle</a></li>!-->
+									</ul>
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<div class="mini-posts">
+										Announcements		
+										<ul>
+										<li><a href = "../../Assignments/HW7_ASCIIArt/artcontest.html">Art contest submissions</a> for <a href = "../../Assignments/HW7_ASCIIArt/index.html">HW7</a> are up!</li>
+										</ul>								
+                                    </div>
+								</section>
+
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; <a href = "http://www.ctralie.com">Christopher J. Tralie</a>. All rights reserved.  Contact chris.tralie@gmail.com. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+			
+            <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+            <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>		
+			
+            <!-- Start of StatCounter Code -->
+            <script type="text/javascript">
+            var sc_project=7309088; 
+            var sc_invisible=1; 
+            var sc_security="f655b56d"; 
+            </script>
+            <script type="text/javascript"
+            src="http://www.statcounter.com/counter/counter.js"></script>
+            <noscript><div class="statcounter"><a title="free hit counter"
+            href="http://statcounter.com/" target="_blank"><img class="statcounter"
+            src="http://c.statcounter.com/7309088/0/f655b56d/1/" alt="free hit
+            counter"></a></div></noscript>
+            <!-- End of StatCounter Code -->
+<!-- End Sidebar !-->
+
+<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/skel.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="../../assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="../../assets/js/main.js"></script>
+<!-- End Scripts -->
+	</body>
+</html>
+

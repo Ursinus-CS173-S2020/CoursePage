@@ -1,0 +1,256 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<!-- Header !-->
+	<head>
+		<title>Ursinus CS 173: Introduction To Computer Science, Spring 2020</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="../../assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="../../assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="../../assets/css/ie8.css" /><![endif]-->
+        <style>
+        .image_off, #home:hover .image_on{
+           display:none
+        }
+        .image_on, #home:hover .image_off{
+           display:block
+        }
+        </style>
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="../../index.html" class="logo"><strong>Ursinus CS 173: Introduction To Computer Science, Spring 2020</strong></a>
+								</header>
+<!-- End Header !-->
+
+							<!-- Content -->
+								<p>
+									<header class="main">
+                                        <h2>Lab 9: Tic Tac Toe (4 pts)</h2>
+                                        <h3>Due Friday 4/17/2020</h3>
+									</header>
+
+									<div id="page-content">
+									    
+
+                                    <h2>Overview</h2>
+                                    <p>
+                                        The purpose of this lab two-fold.  First, it will give students practice with 2D arrays.  At least as importantly, though, no starter code has been provided, so students will need to start from scratch and think a little bit more about how to organize their code from the ground up.  Therefore, <i>this lab will worth 4 points instead of 2, and it will span 2 weeks</i>.
+                                        
+                                    </p>
+
+                                    <h2>The Game</h2>
+                                    <p>
+                                        Students will write a program that simulates a game of Tic-Tac-Toe.  The Tic-Tac-Toe game is played on a 3x3 grid with two players who take turns.  The first player marks moves with an <b>X</b>, and the second player marks moves with an <b>O</b>.  The first player to form a horizontal, vertical, or diagonal sequence of three marks wins the game.  Your program should do the following in order:
+                                        <ol>
+                                            <li>Draw the game board</li>
+                                            <li>As the user for the (zero-indexed) coordinates of the next mark, and record the appropriate mark at those coordinates</li>
+                                            <li>Change the players after every successful move</li>
+                                            <li>End the game and declare the winner once that happens, or declare that there has been a draw (i.e. the board has filled up with no winner)</li>
+                                        </ol>
+                                    </p>
+
+                                    <h3>Example Run</h3>
+                                    <p>
+                                        Slight variations on the input/output prompts are fine, but it should be clear to the user where they are in the game and what they need to input next.
+                                    </p>
+                                    <table>
+                                        <tr><td>
+                                            <p>Welcome to Tic-Tac-Toe!</p>
+                                            <p>
+                                                Current Board:
+<pre>
+- - -
+- - -
+- - -
+</pre>
+                                            </p>
+                                        </td></tr>
+                                        <tr>
+                                            <td>
+                                                Player X Give Coordinates: 2, 2
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Current Board:
+<pre>
+- - -
+- - -
+- - X
+</pre>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Player O Give Coordinates: 1,1
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Current Board:
+<pre>
+- - -
+- O -
+- - X
+</pre>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <p>
+                                        This back and forth should continue until someone wins or until there is a tie.
+                                    </p>
+
+                                    <h2>Code</h2>
+                                    <p>
+                                        You should have at least the five methods below in your code.  You may create other methods to help you, but you need to have at least these
+
+                                        <ol>
+                                            <li>Create and initialize the board.  You should definitely be returning a 2D array of some sort here.</li>
+                                            <li>Make the current user's move</li>
+                                            <li>Determine if there is a winner</li>
+                                            <li>Determine if there is a tie</li>
+                                            <li>Put everything together and play the game (this could possibly happen in a main, but for style, try not to have a sprawling main)</li>
+                                        </ol>
+                                    </p>
+
+                                    <h2>Grading (Out of 4)</h2>
+                                    <p>
+                                        Points will be awarded in the following categories
+                                        <ul>
+                                            <li>Board generation/printing (1 point)</li>
+                                            <li>Play Loop (1 Points)</li>
+                                            <li>Win/Tie Detection (1 Point)</li>
+                                            <li>Style/Code Organization (1 Point)</li>
+                                            <li>Extra Credit (+1 Point): Changeable Board size; that is, prompt the user at the beginning for an odd number <b>N</b> and use this to generate an <b>NxN</b> grid on which to play.  For instance, you should be able to play on a 7x7 grid.</li>
+                                        </ul>
+                                    </p>
+
+                                    <h2>What To Submit</h2>
+                                    <p>
+                                        You must submit a .zip file of your NetBeans project to Canvas.  <a href = "../../Software/index.html#zip">Click here</a> to review instructions for how to do this.
+                                    </p>    
+                                    
+                                    </div>
+                            </div>
+						</div>
+<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="../../index.html">General</a></li>
+										<li><a href = "../../Software/index.html">Software</a></li>
+										<li><a href = "../../Schedule/index.html">Schedule</a></li>
+										<li><a href = "../../style.html">Style Guide</a></li>
+                                        <li>
+											<span class="opener">Labs</span>
+											<ul>
+												<li><a href = "../../Labs/index.html">Main Labs Page</a></li>
+												<li>
+													<ul>
+                                                        <li><a href = "../../Labs/Lab1/index.html">Lab1: Kepler's Third Law</a></li>
+                                                        <li><a href = "../../Labs/Lab2_LeapYears/index.html">Lab2: Leap Years and JUnit</a></li>
+                                                        <li><a href = "../../Labs/Lab4_EpochOverflow/index.html">Lab4: Epoch Time Overflow</a></li>
+                                                        <li><a href = "../../Labs/Lab5_Arrays/index.html">Lab5: Weighted Average, Min Index</a></li>
+                                                        <li><a href = "../../Labs/Lab6_Filtering/index.html">Lab6: Audio Filtering</a></li>
+                                                        <li><a href = "../../Labs/Lab7_COVID19/index.html">Lab7: Epidemic Spreading / Flattening The Curve</a></li>
+                                                        <li><a href = "../../Labs/Lab8_BinaryStrings/index.html">Lab8: Binary Strings</a></li>
+                                                        <li><a href = "../../Labs/Lab9_TicTacToe/index.html">Lab9: Tic Tac Toe</a></li>
+                                                        <li><a href = "../../Modules/Lab10_InsertionSort/video1.html">Lab10: Insertion Sort</a></li>
+                                                        <li><a href = "../../Modules/Lab11_Recursion/video1.html">Lab11: Recursion And Merge Sort</a></li>
+                                                    </ul>
+												</li>
+											</ul>
+										</li>
+                                        <li>
+											<span class="opener">Assignments</span>
+											<ul>
+												<li><a href = "../../Assignments/index.html">Main Assignments Page</a></li>
+												<li>
+													<ul>
+                                                        <li><a href = "../../Assignments/HW0/index.html">HW0: Warmup</a></li>
+                                                        <li><a href = "../../Assignments/HW1/index.html">HW1: Evergreen Field Trip</a></li>
+                                                        <li><a href = "../../Assignments/HW2_FinancialAidCalculation/index.html">HW2: Financial Aid Calculation</a></li>
+                                                        <li><a href = "../../Assignments/HW3_WeekdayCalculator/index.html">HW3: Weekday Calculator</a></li>
+                                                        <li><a href = "../../Assignments/HW4_ChaosGame/index.html">HW4: The Chaos Game</a></li>
+                                                        <li><a href = "../../Assignments/HW5_GuitarStringSynth/index.html">HW5: Guitar String Synthesis</a></li>
+                                                        <li><a href = "../../Assignments/HW6_PseudoRandomCrypto/index.html">HW6: Spy Games</a></li>
+                                                        <li><a href = "../../Assignments/HW7_ASCIIArt/index.html">HW7: ASCII Art</a></li>
+                                                        <li><a href = "../../Assignments/HW8_NintendoAmerica/index.html">HW8: Nintendo America</a></li>
+                                                    </ul>
+												</li>
+											</ul>
+										</li>
+										<!--<li><a href = "../../Raffle/index.html">Raffle</a></li>!-->
+									</ul>
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<div class="mini-posts">
+										Announcements		
+										<ul>
+										<li><a href = "../../Assignments/HW7_ASCIIArt/artcontest.html">Art contest submissions</a> for <a href = "../../Assignments/HW7_ASCIIArt/index.html">HW7</a> are up!</li>
+										</ul>								
+                                    </div>
+								</section>
+
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; <a href = "http://www.ctralie.com">Christopher J. Tralie</a>. All rights reserved.  Contact chris.tralie@gmail.com. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+			
+            <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+            <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>		
+			
+            <!-- Start of StatCounter Code -->
+            <script type="text/javascript">
+            var sc_project=7309088; 
+            var sc_invisible=1; 
+            var sc_security="f655b56d"; 
+            </script>
+            <script type="text/javascript"
+            src="http://www.statcounter.com/counter/counter.js"></script>
+            <noscript><div class="statcounter"><a title="free hit counter"
+            href="http://statcounter.com/" target="_blank"><img class="statcounter"
+            src="http://c.statcounter.com/7309088/0/f655b56d/1/" alt="free hit
+            counter"></a></div></noscript>
+            <!-- End of StatCounter Code -->
+<!-- End Sidebar !-->
+
+<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/skel.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="../../assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="../../assets/js/main.js"></script>
+<!-- End Scripts -->
+	</body>
+</html>
+
