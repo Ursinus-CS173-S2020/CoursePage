@@ -31,3 +31,6 @@
 [submodule "Assignments/HW4_ChaosGame/HW4_ChaosGame"]
 	path = Assignments/HW4_ChaosGame/HW4_ChaosGame
 	url = https://github.com/Ursinus-CS173-S2020/HW4_ChaosGame.git
+[submodule "Assignments/HW5_GuitarStringSynth/HW5_GuitarStringSynth"]
+	path = Assignments/HW5_GuitarStringSynth/HW5_GuitarStringSynth
+	url = https://github.com/Ursinus-CS173-S2020/HW5_GuitarStringSynth.git
