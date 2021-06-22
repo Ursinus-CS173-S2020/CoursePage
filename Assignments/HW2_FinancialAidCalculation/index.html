@@ -1,0 +1,302 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<!-- Header !-->
+	<head>
+		<title>Ursinus CS 173: Introduction To Computer Science, Spring 2020</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="../../assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="../../assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="../../assets/css/ie8.css" /><![endif]-->
+        <style>
+        .image_off, #home:hover .image_on{
+           display:none
+        }
+        .image_on, #home:hover .image_off{
+           display:block
+        }
+        </style>
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="../../index.html" class="logo"><strong>Ursinus CS 173: Introduction To Computer Science, Spring 2020</strong></a>
+								</header>
+<!-- End Header !-->
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h2>Assignment 2: Financial Aid Calculation (25 Points)</h2>
+                                        <h3><a href = "http://www.ctralie.com">Chris Tralie</a> (with heavy inspiration from <a href = "https://www.ursinus.edu/live/profiles/133-ann-marie-v-schilling">Ann Marie Veca-Schilling</a>)</h3>
+                                        <h3>Due Monday 2/10/2020</h3>
+                                    </header>
+
+									<div id="page-content">
+
+                                        <h2>Overview / Logistics</h2>
+										<p>
+                                            The purpose of this assignment is to get you practice with <code>if statements</code> and <code>if/else</code> statements, as well as <a href = "#test">unit tests with JUnit</a>.  It will also serve as a gentle introduction/sneak preview of methods.  The concept for the programming part of this assignment was borrowed heavily from <a href = "https://www.ursinus.edu/live/profiles/133-ann-marie-v-schilling">Professor Schilling</a>'s version of CS 173.
+                                        </p>
+
+                                        <p>
+                                        <a href = "https://github.com/Ursinus-CS173-S2020/HW2_FinancialAidCalculation/archive/master.zip">Click here</a> to download the skeleton code for this assignment.  You will be editing <code>src/hw2/HW2.java</code> and <code>test/hw2/HW2Test.java</code>.  
+                                        </p>
+                                        <p><a name = "readme">What to submit</a>: <b>When you are finished, you should submit these two files to Canvas.  Please also submit answers to the following as a comment on Canvas:</b>
+                                        </p>
+                                        <p>
+                                            <ul>
+                                                <li>Did you work with a buddy on this assignment?  If so, who?</li>
+                                                <li>
+                                                    Are you using up any grace points to buy lateness days?  If so, how many?
+                                                </li>
+                                                <li>
+                                                    Approximately how many hours it took you to finish this assignment (<i>I will not judge you for this at all...I am simply using it to gauge if the assignments are too easy or hard</i>)
+                                                </li>
+                                                <li>
+                                                    Your overall impression of the assignment. Did you love it, hate it, or were you neutral? One word answers are fine, but if you have any suggestions for the future let me know.
+                                                </li>
+                                                <li>
+                                                    Any other concerns that you have. For instance, if you have a bug that you were unable to solve but you made progress, write that here. The more you articulate the problem the more partial credit you will receive (fine to leave this blank)
+                                                </li>
+                                            </ul>
+                                        </p>
+
+                                    <h2>The Problem</h2>
+                                    <p>
+                                        A non-governmental organization got a large donation to help families in need, but they have so many families to help that they need a program to help automate calculating the amount of financial assistance for each family.  The amount of aid depends both on the annual household income <i>and</i> the number of children in the family.  The rules are as follows:
+
+                                        <ul>
+                                            <li>
+                                                <p>
+                                                If the annual household income is greater than <b>$40,000</b>, then no aid is provided.
+                                                </p>
+                                            </li>
+                                            <li>
+                                                If the annual household income is between <b>$30,000</b> (inclusive) and <b>$40,000</b> (inclusive), then apply the following rules:
+                                                <ul>
+                                                    <li>
+                                                        If the household has three or more children, provide <b>$1,000</b> per child.
+                                                    </li>
+                                                    <li>
+                                                        If the household has two or fewer children, provide <b>$500</b> per child.
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                If the annual household income is from <b>$20,000</b> (inclusive) to <b>$30,000</b> (not inclusive), then apply the following rules:
+                                                <ul>
+                                                    <li>
+                                                        If the household has at least two children, then provide <b>$1,500</b> per child.
+                                                    </li>
+                                                    <li>
+                                                        If the household has only one child, then provide <b>$2,000</b> total.
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                If the annual household income is less than <b>$20,000</b>, then provide <b>$2100</b> per child.
+                                            </li>
+                                        </ul>
+                                    </p>
+
+                                    <h2>Programming Tasks (15 Points)</h2>
+                                    <p>
+                                        You have two main tasks to do to complete a working program:
+                                        <ol>
+                                            <li>
+                                                (2 points) Complete an input prompt asking the user to input an integer representing the number of kids who need assistance (this is by far the quicker part).
+                                            </li>
+                                            <li>
+                                                (13 points) Fill in the method that computes the proper amount of assistance, following the rules above.
+                                            </li>
+                                            <li>
+                                                <b>Extra Credit (+2): </b> Print the money with commas in appropriate spots.  For example, print $12,000 instead of $12000.  You can assume that the amount of aid is less than a million dollars, so that you will need at most one comma.
+                                            </li>
+                                        </ol>
+                                    </p>
+
+
+                                    <div id = "tips">
+										<h3>Tips</h3>
+										<ul>
+										<li>It is possible to do this assignment with a single stream of if/else blocks that use boolean expressions, but you may instead want to do it with nested if statements in some of them (it's your choice).  Recall that a nested if statement is a statement such as
+                                        <p>
+                                        <script type="syntaxhighlighter" class="brush: cpp"><![CDATA[
+                                            if (a > b) {
+                                                // Outer block
+                                                if (c > d) {
+                                                    // Inner block 1
+                                                }
+                                                else {
+                                                    // Inner block 2
+                                                }
+                                            }
+                                        ]]></script>                                
+                                        </p>
+                                        In this example, we don't even check <code>c > d</code> unless <code>a > b</code> passes.  Just for contrast, the way to get to inner block 1 without nested if statements is with a boolean expression
+                                        </li>
+
+
+                                        <script type="syntaxhighlighter" class="brush: cpp"><![CDATA[
+                                            if (a > b && c > d) {
+                                                // Inner block 1
+                                            }
+                                        ]]></script>   
+                                    </div>
+
+                                    <h2><a name = "test">Unit Tests (10 Points)</a></h2>
+                                    <p>
+                                        Coming up with proper test cases is an important part of software engineering that, when done properly, saves everyone a huge headache.  Good software testing frameworks allow the programmer to write a whole battery of tests that get applied every time the code is changed so that they don't have to manually input all of the tests every time.  In NetBeans, we have access to one such test framework known as <b>JUnit</b>, which runs a battery of tests completely separately from the main function (more information about JUnit in Netbeans can be found <a href = "https://netbeans.org/kb/docs/java/junit-intro.html#Exercise_30">here</a>).  To create your tests, you will be editing the file <code>HW2Test.java</code> in the <code>TestPackages</code> pane of your NetBeans project.  To run the unit tests, right click on this file and select "run," as shown below
+                                    </p>
+                                    <img src = "RunUnitTest.png">
+
+                                    <p>
+                                        <BR><BR><BR>
+                                        The results of all of the tests will be shown in the console.  For instance, for the default skeleton code, I provided two tests, and one of them fails:
+                                        <BR><BR><BR>
+                                    </p>
+                                    <img src = "TestResults.png">
+                                    <BR><BR>
+                                    <p>
+                                        The reason for this behavior is as follows.  By default, the code returns a "dummy value" of $0.0 for all income levels and number of children.  The first test has a high income that should receive zero aid, so this passes just fine.  However, the second case has a mid level income of $35,000 with 5 kids, that should receive a total of $5,000 in aid by the rules above.  In this case, the dummy value of $0.0 is definitely not correct, so this second test will fail until you update your code.
+                                    </p>
+
+                                    <p>
+                                        To get full credit for this part of the assignment, <b>you must create enough unit tests so that every block of code you write is covered by at least one test</b>.  The reference solution has 6 test cases, including the first two that are provided.  The easiest way to create a new test case is to simply copy and paste the code for a test case that's already there (starting with <code>@Test</code> and continuing through the end curly brace } ) and to rename it and update the test values.  <b>It is recommended that you do this as you are going along</b>.  This will really help you when debugging, and it's a lot easier than inputting values into the console over and over again.
+                                    </p>
+
+                                </div>
+						</div>
+					</div>
+
+					<!--LaTeX in Javascript!-->
+					<script src="../../../../jsMath/easy/load.js"></script>
+					<!--Syntax highlighting in Javascript!-->
+					<script type="text/javascript" src="../../../../syntaxhighlighter/scripts/shCore.js"></script>
+					<script type="text/javascript" src="../../../syntaxhighlighter/scripts/shBrushJScript.js"></script>
+					<script type="text/javascript" src="../../../../syntaxhighlighter/scripts/shBrushCpp.js"></script>
+					<script type="text/javascript" src="../../../../syntaxhighlighter/scripts/shBrushMatlabSimple.js"></script>
+					<script type="text/javascript" src="../../../../syntaxhighlighter/scripts/shBrushPython.js"></script>
+					<link type="text/css" rel="stylesheet" href="../../../../syntaxhighlighter/styles/shCoreDefault.css"/>
+					<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="../../index.html">General</a></li>
+										<li><a href = "../../Software/index.html">Software</a></li>
+										<li><a href = "../../Schedule/index.html">Schedule</a></li>
+										<li><a href = "../../style.html">Style Guide</a></li>
+                                        <li>
+											<span class="opener">Labs</span>
+											<ul>
+												<li><a href = "../../Labs/index.html">Main Labs Page</a></li>
+												<li>
+													<ul>
+                                                        <li><a href = "../../Labs/Lab1/index.html">Lab1: Kepler's Third Law</a></li>
+                                                        <li><a href = "../../Labs/Lab2_LeapYears/index.html">Lab2: Leap Years and JUnit</a></li>
+                                                        <li><a href = "../../Labs/Lab4_EpochOverflow/index.html">Lab4: Epoch Time Overflow</a></li>
+                                                        <li><a href = "../../Labs/Lab5_Arrays/index.html">Lab5: Weighted Average, Min Index</a></li>
+                                                        <li><a href = "../../Labs/Lab6_Filtering/index.html">Lab6: Audio Filtering</a></li>
+                                                        <li><a href = "../../Labs/Lab7_COVID19/index.html">Lab7: Epidemic Spreading / Flattening The Curve</a></li>
+                                                        <li><a href = "../../Labs/Lab8_BinaryStrings/index.html">Lab8: Binary Strings</a></li>
+                                                        <li><a href = "../../Labs/Lab9_TicTacToe/index.html">Lab9: Tic Tac Toe</a></li>
+                                                        <li><a href = "../../Modules/Lab10_InsertionSort/video1.html">Lab10: Insertion Sort</a></li>
+                                                        <li><a href = "../../Modules/Lab11_Recursion/video1.html">Lab11: Recursion And Merge Sort</a></li>
+                                                    </ul>
+												</li>
+											</ul>
+										</li>
+                                        <li>
+											<span class="opener">Assignments</span>
+											<ul>
+												<li><a href = "../../Assignments/index.html">Main Assignments Page</a></li>
+												<li>
+													<ul>
+                                                        <li><a href = "../../Assignments/HW0/index.html">HW0: Warmup</a></li>
+                                                        <li><a href = "../../Assignments/HW1/index.html">HW1: Evergreen Field Trip</a></li>
+                                                        <li><a href = "../../Assignments/HW2_FinancialAidCalculation/index.html">HW2: Financial Aid Calculation</a></li>
+                                                        <li><a href = "../../Assignments/HW3_WeekdayCalculator/index.html">HW3: Weekday Calculator</a></li>
+                                                        <li><a href = "../../Assignments/HW4_ChaosGame/index.html">HW4: The Chaos Game</a></li>
+                                                        <li><a href = "../../Assignments/HW5_GuitarStringSynth/index.html">HW5: Guitar String Synthesis</a></li>
+                                                        <li><a href = "../../Assignments/HW6_PseudoRandomCrypto/index.html">HW6: Spy Games</a></li>
+                                                        <li><a href = "../../Assignments/HW7_ASCIIArt/index.html">HW7: ASCII Art</a></li>
+                                                        <li><a href = "../../Assignments/HW8_NintendoAmerica/index.html">HW8: Nintendo America</a></li>
+                                                    </ul>
+												</li>
+											</ul>
+										</li>
+										<!--<li><a href = "../../Raffle/index.html">Raffle</a></li>!-->
+									</ul>
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<div class="mini-posts">
+										Announcements		
+										<ul>
+										<li><a href = "../../Assignments/HW7_ASCIIArt/artcontest.html">Art contest submissions</a> for <a href = "../../Assignments/HW7_ASCIIArt/index.html">HW7</a> are up!</li>
+										</ul>								
+                                    </div>
+								</section>
+
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; <a href = "http://www.ctralie.com">Christopher J. Tralie</a>. All rights reserved.  Contact chris.tralie@gmail.com. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+			
+            <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+            <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>		
+			
+            <!-- Start of StatCounter Code -->
+            <script type="text/javascript">
+            var sc_project=7309088; 
+            var sc_invisible=1; 
+            var sc_security="f655b56d"; 
+            </script>
+            <script type="text/javascript"
+            src="http://www.statcounter.com/counter/counter.js"></script>
+            <noscript><div class="statcounter"><a title="free hit counter"
+            href="http://statcounter.com/" target="_blank"><img class="statcounter"
+            src="http://c.statcounter.com/7309088/0/f655b56d/1/" alt="free hit
+            counter"></a></div></noscript>
+            <!-- End of StatCounter Code -->
+<!-- End Sidebar !-->
+
+<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/skel.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="../../assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="../../assets/js/main.js"></script>
+<!-- End Scripts -->
+	</body>
+</html>
+

@@ -16,3 +16,18 @@
 [submodule "Labs/Lab2_LeapYears/Lab2_LeapYears"]
 	path = Labs/Lab2_LeapYears/Lab2_LeapYears
 	url = https://github.com/Ursinus-CS173-S2020/Lab2_LeapYears.git
+[submodule "Assignments/HW1/HW1"]
+	path = Assignments/HW1/HW1
+	url = https://github.com/Ursinus-CS173-S2020/HW1.git
+[submodule "Assignments/HW0/HW0"]
+	path = Assignments/HW0/HW0
+	url = https://github.com/Ursinus-CS173-S2020/HW0.git
+[submodule "Assignments/HW2_FinancialAidCalculation/HW2_FinancialAidCalculation"]
+	path = Assignments/HW2_FinancialAidCalculation/HW2_FinancialAidCalculation
+	url = https://github.com/Ursinus-CS173-S2020/HW2_FinancialAidCalculation.git
+[submodule "Assignments/HW3_WeekdayCalculator"]
+	path = Assignments/HW3_WeekdayCalculator
+	url = https://github.com/Ursinus-CS173-S2020/HW3_WeekdayCalculator.git
+[submodule "Assignments/HW4_ChaosGame/HW4_ChaosGame"]
+	path = Assignments/HW4_ChaosGame/HW4_ChaosGame
+	url = https://github.com/Ursinus-CS173-S2020/HW4_ChaosGame.git
