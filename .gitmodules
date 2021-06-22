@@ -1,0 +1,9 @@
+[submodule "Lectures/Class1"]
+	path = Lectures/Class1
+	url = https://github.com/Ursinus-CS173-S2020/Class1.git
+[submodule "Lectures/Week8_Binary"]
+	path = Lectures/Week8_Binary
+	url = https://github.com/Ursinus-CS173-S2020/Week8_Binary.git
+[submodule "Labs/Lab1"]
+	path = Labs/Lab1
+	url = https://github.com/Ursinus-CS173-S2020/Lab1.git
