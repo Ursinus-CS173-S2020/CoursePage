@@ -1,0 +1,238 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<!-- Header !-->
+	<head>
+		<title>Ursinus CS 173: Introduction To Computer Science, Spring 2020</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="../../assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="../../assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="../../assets/css/ie8.css" /><![endif]-->
+        <style>
+        .image_off, #home:hover .image_on{
+           display:none
+        }
+        .image_on, #home:hover .image_off{
+           display:block
+        }
+        </style>
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="../../index.html" class="logo"><strong>Ursinus CS 173: Introduction To Computer Science, Spring 2020</strong></a>
+								</header>
+<!-- End Header !-->
+
+							<!-- Content -->
+								<p>
+									<header class="main">
+                                        <h2>Lab 5: Weighted Average And Min Index</h2>
+                                        <h3>Due Friday 2/28/2020</h3>
+									</header>
+
+									<div id="page-content">
+									    
+
+                                    <h2>Overview</h2>
+                                    <p>
+                                        The purpose of this lab is to give students practice with arrays and loops in Java by implementing two very common routines: finding the weighted average of a set of numbers, and finding the minimum out of a set of unordered numbers.
+                                    </p>
+
+                                    <h2>Code</h2>
+                                    <p><a href = "https://github.com/Ursinus-CS173-S2020/Lab5_Arrays/archive/master.zip">Click here</a> to download the skeleton code for the assignment.  At the end, you should upload <code>Lab5.java</code> to canvas.  <b>A number of JUnit tests have been provided for you under Test Packages</b>.  You should be sure that you can pass all of these tests before you submit your solution.</p>  Of course, you don't have to worry about passing the tests for the extra credit if you don't do it.
+                                    </p>
+
+                                    
+
+
+                                    <h2>Part 1: Weighted Average</h2>
+
+                                    <p>
+                                        As your first task, you will implement a method that takes the <i>weighted average</i> of a set of values.  The unweighted average of a set of values is their sum divided by the number of values.  For example, the average of <code>1, 2, 3, 4</code> is <code>(1+2+3+4)/4 = 10/4 = 2.5</code>.  The weighted average, on the other hand, includes a set of weights.  For instance, let's consider a student in this class who gets some specific scores on different components of the class
+                                        <table>
+                                            <tr><td>Category</td><td>Weight</td><td>Value</td></tr>
+                                            <tr><td>Programming Assignments</td><td>45</td><td>100</td></tr>
+                                            <tr><td>Labs</td><td>25</td><td>60</td></tr>
+                                            <tr><td>Final Project</td><td>15</td><td>98</td></tr>
+                                            <tr><td>Class Participation</td><td>5</td><td>50</td></tr>
+                                            <tr><td>Reading Surveys</td><td>5</td><td>20</td></tr>
+                                            <tr><td>Debugging Table</td><td>5</td><td>100</td></tr>
+                                        </table>
+                                    </p>
+
+                                    <p>
+                                    The unweighted average of this would be <code>(100+60+98+50+20+100)/6 = 73.333</code>, which is a low C.  If, however, we use the weighted average, we instead have
+                                    </p>
+
+                                    <h3>
+                                        \[ \frac{(45)(100) + (25)(60) + (15)(98) + (5)(50) + (5)(20) + (5)(100)}{45+25+15+5+5+5} =  83.2\]
+                                    </h3>
+
+                                    <p>
+                                        So instead of summing the numbers, <i>we sum the numbers times their weights</i>, and we divide by the sum of the weights.  So actually, because programming assignments (which the student did great on) were weighted higher and the reading surveys (which the student did terribly on) were weighted lower, the weighted average ends up being much higher than the unweighted average in this case.
+                                    </p>
+
+                                    <p>
+                                        In your program, both the <code>values</code> and their <code>weights</code> are represented as <i>parallel arrays</i> of doubles.  What this means is that both arrays have the same length, and <code>weights[i]</code> is the weight for <code>values[i]</code>, for every index <code>i</code> in range.  Your job is to fill in the method
+                                    </p>
+
+                                    <p>
+                                        <code>getWeightedAverage(double[] weights, double[] values)</code>
+                                    </p>
+
+                                    <p>
+                                        The arrays are passed from elsewhere; you simply treat them as variables at runtime.  If you run the tests, they will call your method with different values.  Note that you can get the length of an array <code>arr</code> with <code>arr.length</code>.  You may assume that <code>weights</code> and <code>values</code> have the same length.  Finally, note that arrays are <b>zero-indexed</b>.  This means that <code>arr[0]</code> accesses the first element, and <code>arr[arr.length-1]</code> accesses the last element.
+                                    </p>
+
+                                    <h3>Corner case</h3>
+                                    <p>
+                                        There is one corner case your program must handle.  If the length of <code>weights</code> and <code>values</code> is 0, then you should return 0.  If you don't handle this properly, you will fail the <code>testGetWeightedAverageCornerCase()</code> test.
+                                    </p>
+
+                                    <h2>Part 2: Minimum Index (+1 Point Extra Credit)</h2>
+                                    
+                                    <p>
+                                        For one point of extra credit, you should take in an array and return the <i>index</i> of the minimum element in that array by filling in the <code>getMinIndex</code> method in <code>Lab5.java</code>.  If there are ties, you should return the index of the <i>first</i> instance of the minimum element.  For example, if the array is
+                                    </p>
+
+                                    <p>
+                                        <code>double[] arr = {-2, 5, 7, -5, 8, 9, -3, 2, -5, 3};</code>
+                                    </p>
+
+                                    Then the call
+                                    <p>
+                                        <code>getMinIndex(arr)</code>
+                                    </p>
+
+                                    <p>
+                                        should return 3, since the minimum element, -5, first occurs at index 3 in the array (it's in the 4th position, recalling that we are 0-indexed).
+                                    </p>
+
+                                    <h2>What To Submit</h2>
+                                    <p>
+                                        You must submit the file <code>Lab5.java</code> to Canvas.
+                                    </p>    
+                                    
+                                    </div>
+                            </div>
+						</div>
+<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="../../index.html">General</a></li>
+										<li><a href = "../../Software/index.html">Software</a></li>
+										<li><a href = "../../Schedule/index.html">Schedule</a></li>
+										<li><a href = "../../style.html">Style Guide</a></li>
+                                        <li>
+											<span class="opener">Labs</span>
+											<ul>
+												<li><a href = "../../Labs/index.html">Main Labs Page</a></li>
+												<li>
+													<ul>
+                                                        <li><a href = "../../Labs/Lab1/index.html">Lab1: Kepler's Third Law</a></li>
+                                                        <li><a href = "../../Labs/Lab2_LeapYears/index.html">Lab2: Leap Years and JUnit</a></li>
+                                                        <li><a href = "../../Labs/Lab4_EpochOverflow/index.html">Lab4: Epoch Time Overflow</a></li>
+                                                        <li><a href = "../../Labs/Lab5_Arrays/index.html">Lab5: Weighted Average, Min Index</a></li>
+                                                        <li><a href = "../../Labs/Lab6_Filtering/index.html">Lab6: Audio Filtering</a></li>
+                                                        <li><a href = "../../Labs/Lab7_COVID19/index.html">Lab7: Epidemic Spreading / Flattening The Curve</a></li>
+                                                        <li><a href = "../../Labs/Lab8_BinaryStrings/index.html">Lab8: Binary Strings</a></li>
+                                                        <li><a href = "../../Labs/Lab9_TicTacToe/index.html">Lab9: Tic Tac Toe</a></li>
+                                                        <li><a href = "../../Modules/Lab10_InsertionSort/video1.html">Lab10: Insertion Sort</a></li>
+                                                        <li><a href = "../../Modules/Lab11_Recursion/video1.html">Lab11: Recursion And Merge Sort</a></li>
+                                                    </ul>
+												</li>
+											</ul>
+										</li>
+                                        <li>
+											<span class="opener">Assignments</span>
+											<ul>
+												<li><a href = "../../Assignments/index.html">Main Assignments Page</a></li>
+												<li>
+													<ul>
+                                                        <li><a href = "../../Assignments/HW0/index.html">HW0: Warmup</a></li>
+                                                        <li><a href = "../../Assignments/HW1/index.html">HW1: Evergreen Field Trip</a></li>
+                                                        <li><a href = "../../Assignments/HW2_FinancialAidCalculation/index.html">HW2: Financial Aid Calculation</a></li>
+                                                        <li><a href = "../../Assignments/HW3_WeekdayCalculator/index.html">HW3: Weekday Calculator</a></li>
+                                                        <li><a href = "../../Assignments/HW4_ChaosGame/index.html">HW4: The Chaos Game</a></li>
+                                                        <li><a href = "../../Assignments/HW5_GuitarStringSynth/index.html">HW5: Guitar String Synthesis</a></li>
+                                                        <li><a href = "../../Assignments/HW6_PseudoRandomCrypto/index.html">HW6: Spy Games</a></li>
+                                                        <li><a href = "../../Assignments/HW7_ASCIIArt/index.html">HW7: ASCII Art</a></li>
+                                                        <li><a href = "../../Assignments/HW8_NintendoAmerica/index.html">HW8: Nintendo America</a></li>
+                                                    </ul>
+												</li>
+											</ul>
+										</li>
+										<!--<li><a href = "../../Raffle/index.html">Raffle</a></li>!-->
+									</ul>
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<div class="mini-posts">
+										Announcements		
+										<ul>
+										<li><a href = "../../Assignments/HW7_ASCIIArt/artcontest.html">Art contest submissions</a> for <a href = "../../Assignments/HW7_ASCIIArt/index.html">HW7</a> are up!</li>
+										</ul>								
+                                    </div>
+								</section>
+
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; <a href = "http://www.ctralie.com">Christopher J. Tralie</a>. All rights reserved.  Contact chris.tralie@gmail.com. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+			
+            <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+            <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>		
+			
+            <!-- Start of StatCounter Code -->
+            <script type="text/javascript">
+            var sc_project=7309088; 
+            var sc_invisible=1; 
+            var sc_security="f655b56d"; 
+            </script>
+            <script type="text/javascript"
+            src="http://www.statcounter.com/counter/counter.js"></script>
+            <noscript><div class="statcounter"><a title="free hit counter"
+            href="http://statcounter.com/" target="_blank"><img class="statcounter"
+            src="http://c.statcounter.com/7309088/0/f655b56d/1/" alt="free hit
+            counter"></a></div></noscript>
+            <!-- End of StatCounter Code -->
+<!-- End Sidebar !-->
+
+<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/skel.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="../../assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="../../assets/js/main.js"></script>
+<!-- End Scripts -->
+	</body>
+</html>
+
