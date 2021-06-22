@@ -1,0 +1,345 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<!-- Header !-->
+	<head>
+		<title>Ursinus CS 173: Introduction To Computer Science, Spring 2020</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="../../assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="../../assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="../../assets/css/ie8.css" /><![endif]-->
+        <style>
+        .image_off, #home:hover .image_on{
+           display:none
+        }
+        .image_on, #home:hover .image_off{
+           display:block
+        }
+        </style>
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="../../index.html" class="logo"><strong>Ursinus CS 173: Introduction To Computer Science, Spring 2020</strong></a>
+								</header>
+<!-- End Header !-->
+
+							<!-- Content -->
+								<p>
+									<header class="main">
+                                        <h2>Lab 7: Epidemic Spreading / Flattening The Curve</h2>
+                                        <h3>Due Monday 3/23/2020</h3>
+                                        <h3>Inspired by <a href = "https://www.washingtonpost.com/graphics/2020/world/corona-simulator/">this article</a> in the Washington Post</h3>
+									</header>
+
+									<div id="page-content">
+									    
+
+                                    <h2>Overview</h2>
+                                    <p>
+                                        We're all stuck away from campus during an extended spring break because of COVID 19.  To make sure students don't get rusty on methods, loops, and arrays, I've created a lab that's super relevant to what's going on.  Students will perform a <a href = "https://en.wikipedia.org/wiki/Monte_Carlo_method">Monte Carlo</a> simulation of a model of a spreading epidemic.  The model is very simple, but it is enough to illustrate the concept of "flattening the curve" (as you will see below) which is why we all need to practice <a href = "http://www.cidrap.umn.edu/sites/default/files/public/php/185/185_factsheet_social_distancing.pdf">social distancing</a>.  The simulation runs hour by hour in a loop, and each person is a dot which is either <code>INFECTED</code>, <code>UNINFECTED</code>, or <code>RECOVERED</code>.  A certain amount of people are moving, and the rest stay still, based on parameters.  As the simulation proceeds and each moving point follows a random walk, the following two rules apply
+                                        <h3><a name = "rules">Rules</a></h3>
+                                        <ol>
+                                            <li>
+                                                If a person who is <code>UNINFECTED</code> becomes close enough to a person who's <code>INFECTED</code>, they become <code>INFECTED</code> as well.
+                                            </li>
+                                            <li>
+                                                A person who has been <code>INFECTED</code> for long enough becomes <code>RECOVERED</code>.  A <code>RECOVERED</code> person does not get sick again, and does not infect anyone.
+                                            </li>
+                                        </ol>
+                                        Your job is to fill in code that applies these rules.
+                                    </p>
+
+                                    <h2>Code</h2>
+                                    <p>
+                                        The starter code for this assignment can be found at <a href = "https://github.com/Ursinus-CS173-S2020/Lab7_COVID19/archive/master.zip">this link</a>.  You will be editing the <code><a href = "https://github.com/Ursinus-CS173-S2020/Lab7_COVID19/blob/5a8f0d100fd770fc1afd5a576ac33bc774d0eca5/src/covid19/COVID19.java#L41">updateInfections</a></code> method of <a href = "https://github.com/Ursinus-CS173-S2020/Lab7_COVID19/blob/master/src/covid19/COVID19.java"><code>COVID19.java</code></a>.  Code has already been provided to loop through all steps in the simulation, apply random walks, and draw the points at each hourly timestep.  (NOTE: The <a href = "https://github.com/Ursinus-CS173-S2020/Lab7_COVID19/blob/ef694f52e41d95c350931b5c560f6f2ccee87b0f/src/covid19/COVID19.java#L99">random walk</a> code is very similar to the code we wrote together in class for a single point when we first discussed loops.)
+                                    </p>
+                                    
+                                    <p>
+                                    There are two variables that will affect how you apply the <a href = "#rules">rules</a> when you fill in <code>updateInfections</code>:
+                                        <ol>
+                                            <li><b><code>dist</code>:</b>  If an uninfected person <code>i</code> is <i>less than or equal to</i> this amount away in both its x coordinate <b>and</b> its y coordinate to an infected person <code>j</code>, then person <code>i</code> becomes infected.</li>
+
+                                            <li><b> <code>recoveryTime </code>:</b> If an infected person has been long for this amount of time, then they are recovered.</li>
+                                        </ol>
+                                        
+                                        There are four parallel arrays that are passed into this method that have as many elements as there are people:
+                                        <ul>
+                                            <li><b><code>xcoords</code>:</b> A double array of the x coordinates of all people</li>
+                                            <li><b><code>ycoords</code>:</b> An array of the y coordinates of all people</li>
+                                            <li><b><code>states</code>:</b> An array of all peoples' states (the constants INFECTED/UNINFECTED/RECOVERED).  For example,<BR><code>states[0] = INFECTED</code><BR> would set the person at index 0 to be infected, and<BR> <code>if(states[i] == RECOVERED)</code><BR> would check to see if the i<sup>th</sup> person had recovered.</li>
+                                            <li><b><code>timeSick</code>:</b> An array of ints storing the amount of hours that each person has been sick.  If the person has yet to be infected, this number is 0.  If the person has recovered, this number stays fixed at <code>recoveryTime</code></li>
+                                        </ul>
+                                    </p>
+
+                                    <p>
+                                        Your job is to update the array of <code>states</code> and the array <code>timeSick</code> for all people, based on their current state, their position, and the recovery time.
+                                    </p>
+
+                                    <h3>Tips</h3>
+                                    <ul>
+                                        <li>You should have a loop that loops through all of the people.  You may assume that all of the arrays have the same length</li>
+                                        <li>The <code>Math.abs()</code> function for the absolute value may come in handy when you're determining if two x coordinates or two y coordinates are within <code>dist</code>.</li>
+                                        <li>For people who are uninfected, you will need a nested loop to check all other people to see if they are close enough to someone who is infected.</li>
+                                        <li>Don't forget to add one to the amount of time an infected person has been sick</li>
+                                        <li>You don't need to do anything to people who have already recovered.</li>
+                                    </ul>
+
+                                    <h2><a name = "examplegrid">Example 0: Grid Example</a></h2>
+                                    <p>
+                                        To warm us up, let's consider an example of 6 points on a grid, with a recovery time of 100, and then look at the corresponding arrays that are passed to the <code>updateInfections</code> method.  The example grid is as follows:
+                                    </p>
+
+                                    <p>
+                                        <img src = "ExampleGrid.svg">
+                                    </p>
+
+                                    <p>
+                                        From this, we see that we have the following groups of dots (where the numbers in the dots represent how long those dots have been infected)
+                                        <ul>
+                                            <li>
+                                                Three infected dots at locations (1, 2), (2, 6), and (4, 7).  They have each been infected for 11 hours, 17 hours, and 24 hours, respectively.
+                                            </li>
+                                            <li>
+                                                Two uninfected dots at locations (1, 5) and (7, 5)
+                                            </li>
+                                            <li>
+                                                One dot at location (4, 4), which is recovered because it had already been infected for 100 hours.
+                                            </li>
+                                        </ul>
+                                    </p>
+
+                                    <p>
+                                        From this, the arrays that the <code>updateInfections</code> method receives should look as follows (NOTE: They are in no particular order, but in this example I have put them in the order that I described them above)
+                                        <script type="syntaxhighlighter" class="brush: cpp"><![CDATA[
+                                            double[] xcoords = {1, 2, 4, 1, 7, 4};
+                                            double[] ycoords = {2, 6, 7, 5, 5, 4};
+                                            int[] states = {INFECTED, INFECTED, INFECTED, UNINFECTED, UNINFECTED, RECOVERED};
+                                            int[] timeSick = {11, 17, 24, 0, 0, 100};
+                                        ]]></script> 
+                                    </p>
+
+                                    <p>
+                                        Finally, let's look at an example of the distance computation.  Let's consider the infected person at location (2, 6) and the uninfected person at location (5, 7).  The distance between the two is
+
+                                        \[ |2-5| + |6-7| = 3 + 1 = 4 \]
+                                    </p>
+
+                                    <HR>
+                                    <h2>Example 1: Everyone Moving</h2>
+                                    <p>
+                                        Let's now look at what a working implementation of the code should yield as the simulation progresses.  As an example, let's consider this code which is currently in the main function
+
+                                        <script type="syntaxhighlighter" class="brush: cpp"><![CDATA[
+                                            int numPeople = 1000;
+                                            int numMoving = numPeople;
+                                            int numHours = 24*120;
+                                            int res = 200;
+                                            int recoveryTime = 24*14;
+                                            boolean draw = true;
+                                            simulatePandemic(numPeople, numMoving, numHours, res, recoveryTime, draw);
+                                        ]]></script> 
+
+                                        In this example, every single person in a population of 1000 people is moving.  People who are uninfected are drawn as blue dots, people who are infected are drawn as larger red dots, and people who were infected but who have recovered are drawn as magenta dots.  The simulation will look something like this (although it will be random every time)
+                                    </p>
+                                    <p>
+
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/Djzi3af9uzo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    </p>
+
+                                    <p>
+                                        The code pops up with the following plot at the end, which shows how many people were in each of the three states at each hour:
+                                    </p>
+                                    <img src = "1000_100_200x200.png">
+
+                                    <p>
+                                        As we can see both in the simulation and in the graph, the number of infections explodes very quickly.
+                                    </p>
+
+
+
+                                    <HR>
+                                    <h2>Example 2: Only 20% Moving</h2>
+                                    <p>
+                                        As another example, let's consider a scenario in which only 200 out of 1000 of people are moving
+
+                                        <script type="syntaxhighlighter" class="brush: cpp"><![CDATA[
+                                            int numPeople = 1000;
+                                            int numMoving = 200;
+                                            int numHours = 24*120;
+                                            int res = 200;
+                                            int recoveryTime = 24*14;
+                                            boolean draw = true;
+                                            simulatePandemic(numPeople, numMoving, numHours, res, recoveryTime, draw);
+                                        ]]></script> 
+
+                                        The video simulation then looks more like this:
+                                    </p>
+                                    <p>
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/znfGC3Rr-b0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    </p>
+
+                                    <p>
+                                        The code pops up with the following plot at the end for the above example:
+                                    </p>
+
+                                    <p>
+                                    <img src = "1000_20_200x200.png">
+                                    </p>
+                                    
+                                    <p>
+                                        As we can see both in the simulation and in the graph, the number of infections does not grow nearly as quickly, and the total number of people who are infected stays relatively flat.  This is why overall "social distancing" leads to "flattening the curve.  Even if some people do not follow the rules, it still keeps the number of cases manageable, and this can buy us valuable time to investigate vaccines and to study the illness.
+                                    </p>
+
+
+                                    <h2>What To Submit</h2>
+                                    <p>
+                                        You must submit the file <code>COVID19.java</code> to Canvas.
+                                    </p>    
+
+                                    <h2>Other Things To Try</h2>
+                                    <p>
+                                        If you finish this and are interested in exploring more, here are some things you can try for fun:
+                                        <ul>
+                                            <li>Try playing around with the number of people and the size of the grid and see what curves you come up with.  To speed things up and to just see the curves in the end, you can set <code>draw</code> to be false.</li>
+                                            <li>See what happens if more than one person starts off infected in different locations</li>
+                                            <li>See what happens if you try to do a "lossy quarantine" of a square region; that is, start the infected person inside the square.  Then, don't let people inside of the square leave, and don't let people out of the square enter, but a small percentage of the time let one through.  Do we still need social distancing in this case?  </li>
+                                            <li>Add a feature so that people die with a certain probability before recovering.  People who have died should not move or infect anymore, and they should be drawn in a different color.</li>
+                                            <li>For those who know a little more math, it is often said that epidemics have <i>exponential</i> growth towards the beginning.  Is that the case in this model?  Why or why not?</li>
+                                        </ul>
+                                    </p>
+                                    
+                                    </div>
+                            </div>
+                        </div>
+                        
+					<!--LaTeX in Javascript!-->
+					<script src="../../../../jsMath/easy/load.js"></script>
+					<!--Syntax highlighting in Javascript!-->
+					<script type="text/javascript" src="../../../../syntaxhighlighter/scripts/shCore.js"></script>
+					<script type="text/javascript" src="../../../syntaxhighlighter/scripts/shBrushJScript.js"></script>
+					<script type="text/javascript" src="../../../../syntaxhighlighter/scripts/shBrushCpp.js"></script>
+					<script type="text/javascript" src="../../../../syntaxhighlighter/scripts/shBrushMatlabSimple.js"></script>
+					<script type="text/javascript" src="../../../../syntaxhighlighter/scripts/shBrushPython.js"></script>
+					<link type="text/css" rel="stylesheet" href="../../../../syntaxhighlighter/styles/shCoreDefault.css"/>
+					<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="../../index.html">General</a></li>
+										<li><a href = "../../Software/index.html">Software</a></li>
+										<li><a href = "../../Schedule/index.html">Schedule</a></li>
+										<li><a href = "../../style.html">Style Guide</a></li>
+                                        <li>
+											<span class="opener">Labs</span>
+											<ul>
+												<li><a href = "../../Labs/index.html">Main Labs Page</a></li>
+												<li>
+													<ul>
+                                                        <li><a href = "../../Labs/Lab1/index.html">Lab1: Kepler's Third Law</a></li>
+                                                        <li><a href = "../../Labs/Lab2_LeapYears/index.html">Lab2: Leap Years and JUnit</a></li>
+                                                        <li><a href = "../../Labs/Lab4_EpochOverflow/index.html">Lab4: Epoch Time Overflow</a></li>
+                                                        <li><a href = "../../Labs/Lab5_Arrays/index.html">Lab5: Weighted Average, Min Index</a></li>
+                                                        <li><a href = "../../Labs/Lab6_Filtering/index.html">Lab6: Audio Filtering</a></li>
+                                                        <li><a href = "../../Labs/Lab7_COVID19/index.html">Lab7: Epidemic Spreading / Flattening The Curve</a></li>
+                                                        <li><a href = "../../Labs/Lab8_BinaryStrings/index.html">Lab8: Binary Strings</a></li>
+                                                        <li><a href = "../../Labs/Lab9_TicTacToe/index.html">Lab9: Tic Tac Toe</a></li>
+                                                        <li><a href = "../../Modules/Lab10_InsertionSort/video1.html">Lab10: Insertion Sort</a></li>
+                                                        <li><a href = "../../Modules/Lab11_Recursion/video1.html">Lab11: Recursion And Merge Sort</a></li>
+                                                    </ul>
+												</li>
+											</ul>
+										</li>
+                                        <li>
+											<span class="opener">Assignments</span>
+											<ul>
+												<li><a href = "../../Assignments/index.html">Main Assignments Page</a></li>
+												<li>
+													<ul>
+                                                        <li><a href = "../../Assignments/HW0/index.html">HW0: Warmup</a></li>
+                                                        <li><a href = "../../Assignments/HW1/index.html">HW1: Evergreen Field Trip</a></li>
+                                                        <li><a href = "../../Assignments/HW2_FinancialAidCalculation/index.html">HW2: Financial Aid Calculation</a></li>
+                                                        <li><a href = "../../Assignments/HW3_WeekdayCalculator/index.html">HW3: Weekday Calculator</a></li>
+                                                        <li><a href = "../../Assignments/HW4_ChaosGame/index.html">HW4: The Chaos Game</a></li>
+                                                        <li><a href = "../../Assignments/HW5_GuitarStringSynth/index.html">HW5: Guitar String Synthesis</a></li>
+                                                        <li><a href = "../../Assignments/HW6_PseudoRandomCrypto/index.html">HW6: Spy Games</a></li>
+                                                        <li><a href = "../../Assignments/HW7_ASCIIArt/index.html">HW7: ASCII Art</a></li>
+                                                        <li><a href = "../../Assignments/HW8_NintendoAmerica/index.html">HW8: Nintendo America</a></li>
+                                                    </ul>
+												</li>
+											</ul>
+										</li>
+										<!--<li><a href = "../../Raffle/index.html">Raffle</a></li>!-->
+									</ul>
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<div class="mini-posts">
+										Announcements		
+										<ul>
+										<li><a href = "../../Assignments/HW7_ASCIIArt/artcontest.html">Art contest submissions</a> for <a href = "../../Assignments/HW7_ASCIIArt/index.html">HW7</a> are up!</li>
+										</ul>								
+                                    </div>
+								</section>
+
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; <a href = "http://www.ctralie.com">Christopher J. Tralie</a>. All rights reserved.  Contact chris.tralie@gmail.com. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+			
+            <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+            <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>		
+			
+            <!-- Start of StatCounter Code -->
+            <script type="text/javascript">
+            var sc_project=7309088; 
+            var sc_invisible=1; 
+            var sc_security="f655b56d"; 
+            </script>
+            <script type="text/javascript"
+            src="http://www.statcounter.com/counter/counter.js"></script>
+            <noscript><div class="statcounter"><a title="free hit counter"
+            href="http://statcounter.com/" target="_blank"><img class="statcounter"
+            src="http://c.statcounter.com/7309088/0/f655b56d/1/" alt="free hit
+            counter"></a></div></noscript>
+            <!-- End of StatCounter Code -->
+<!-- End Sidebar !-->
+
+<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/skel.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="../../assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="../../assets/js/main.js"></script>
+<!-- End Scripts -->
+	</body>
+</html>
+
