@@ -13,3 +13,6 @@
 [submodule "Labs/Lab5_Arrays/Lab5_Arrays"]
 	path = Labs/Lab5_Arrays/Lab5_Arrays
 	url = https://github.com/Ursinus-CS173-S2020/Lab5_Arrays.git
+[submodule "Labs/Lab2_LeapYears/Lab2_LeapYears"]
+	path = Labs/Lab2_LeapYears/Lab2_LeapYears
+	url = https://github.com/Ursinus-CS173-S2020/Lab2_LeapYears.git
