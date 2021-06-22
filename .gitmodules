@@ -37,3 +37,9 @@
 [submodule "Assignments/HW6_PseudoRandomCrypto/HW6_PseudoRandomCrypto"]
 	path = Assignments/HW6_PseudoRandomCrypto/HW6_PseudoRandomCrypto
 	url = https://github.com/Ursinus-CS173-S2020/HW6_PseudoRandomCrypto.git
+[submodule "Assignments/HW7_ASCIIArt/HW7_ASCIIArt"]
+	path = Assignments/HW7_ASCIIArt/HW7_ASCIIArt
+	url = https://github.com/Ursinus-CS173-S2020/HW7_ASCIIArt.git
+[submodule "Assignments/HW6_PseudoRandomCrypto/Week8_Binary"]
+	path = Assignments/HW6_PseudoRandomCrypto/Week8_Binary
+	url = https://github.com/Ursinus-CS173-S2020/Week8_Binary.git
