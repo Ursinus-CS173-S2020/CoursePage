@@ -1,0 +1,497 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<!-- Header !-->
+	<head>
+		<title>Ursinus CS 173: Introduction To Computer Science, Spring 2020</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="../../assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="../../assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="../../assets/css/ie8.css" /><![endif]-->
+        <style>
+        .image_off, #home:hover .image_on{
+           display:none
+        }
+        .image_on, #home:hover .image_off{
+           display:block
+        }
+        </style>
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="../../index.html" class="logo"><strong>Ursinus CS 173: Introduction To Computer Science, Spring 2020</strong></a>
+								</header>
+<!-- End Header !-->
+
+                            <!-- Content -->
+                                <script src="Week8_Binary/BinaryUtils.js"></script>
+                                <script src="Week8_Binary/LFSR.js"></script>
+                                <section>
+									<header class="main">
+                                        <h2>Assignment 6: Spy Games (30 pts)</h2>
+                                        <h3><a href = "http://www.ctralie.com">Chris Tralie</a></h3>
+                                        <h3>Due Wednesday 4/8/2020</h3>
+									</header>
+
+									<div id="page-content">
+
+                                        <h2>Overview / Logistics</h2>
+										<p>
+                                            The purpose of this assignment  is to get you practice with binary and bitwise operators in Java in a fun application involving cryptography.  Not only will you learn more about how pseudorandom number generators, like <code>java.util.Random</code>, actually work behind the scenes, but you will also implement an operation which is at the heart of many digital encryption schemes: "XOR Encryption."
+                                        </p>
+
+                                        <p>
+                                        <a href = "https://github.com/Ursinus-CS173-S2020/HW6_PseudoRandomCrypto/archive/master.zip">Click here</a> to download the skeleton code for this assignment.  You will be editing <code>src/LFSR.java</code>.
+                                        
+                                        <h3><a name = "readme">What to submit</a>:</h3>
+                                        <p> <b>When you are finished, you should submit <code>LFSR.java</code> to Canvas, as well as your encrypted text file from <a href = "#part4">part 4</a>.  Please also submit answers to the following questions:</b> (you can simply number your answers from 1 to 7 as a comment on Canvas)
+                                        </p>
+                                        <p>
+                                            <ol>
+                                                <li>
+                                                    <b>What is the initial state for your example in <a href = "#part4">part 4</a>, and which hex string did you use for your taps?  If you do not provide this information, you will not receive full credit for part 4</b>
+                                                </li>
+                                                <li>Did you work with a buddy on this assignment?  If so, who?
+                                                </li>
+                                                <li>
+                                                    Did you use any resources outside of the class textbook and provided links to help you complete the assignment?  Please list them here.
+                                                </li>
+                                                <li>
+                                                    Are you using up any grace points to buy lateness days?  If so, how many?
+                                                </li>
+                                                <li>
+                                                    Approximately how many hours it took you to finish this assignment (<i>I will not judge you for this at all...I am simply using it to gauge if the assignments are too easy or hard</i>)
+                                                </li>
+                                                <li>
+                                                    Your overall impression of the assignment. Did you love it, hate it, or were you neutral? One word answers are fine, but if you have any suggestions for the future let me know.
+                                                </li>
+                                                <li>
+                                                    Any other concerns that you have. For instance, if you have a bug that you were unable to solve but you made progress, write that here. The more you articulate the problem the more partial credit you will receive (fine to leave this blank)
+                                                </li>
+                                            </ol>
+                                        </p>
+
+                                    <h2><a name = "bglfsr">Background: Linear Feedback Shift Registers</a></h2>
+
+                                    <p>
+                                        A linear feedback shift register (LFSR) is a data structure for generating pseudorandom binary bits.  One can think of it as a scheme for generating coin flips which look totally random, but which are perfectly repeatable given an initial state and a set of "taps."  Together, these bits of information can be thought of as the <i>password</i> that we use to hide data.  In particular, we will use the sequence of pseudorandom bits generated by this password to hide a message.
+                                    </p>
+
+                                    <p>
+                                        A linear feedback shift register is specified by a binary string and a set of <b>taps</b>, which are locations of particular bits of the register numbered at 1 starting on the right.  To generate a new bit, the LFSR takes the XOR of the bits at all of the tap positions.  Then, the bit string of the LFSR is updated by deleting the leftmost bit, shifting the whole bit string by one to the left, and putting the new bit in the rightmost position.  The animation below shows this in more detail.  Please play with this until the concept is clear
+                                    </p>
+
+
+                                    <div style="overflow-x:auto;">
+                                    <table cellpadding = 5>
+                                        <tr>
+                                            <td>
+                                                <h3>Register: 0x<input type="text" id = "lfsrReg" size="16"></h3>
+                                            </td>
+                                            <td>
+                                                <h3>Taps: <input type="text" id = "lfsrTaps" size="16"></h3>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h3>Bit Length: <input type="text" id = "lfsrBits" size="4"></h3>
+                                            </td>
+                                            <td>
+                                                <button type = "button" onclick = "resetLFSR()">Reset</button>
+                                                <button type = "button" onclick = "doStep()">Step</button>
+                                                <button type = "button" onclick = "doTurboStep()">Turbo</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan=2>
+                                                <div id = "lfsrTable"></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan=2>
+                                                <div id = "lfsrHeadsTails"></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan=2>
+                                                <div id = "lfsrStep"></div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    </div>
+
+
+                                    <script>
+                                        let START = "FACE";
+                                        let lfsrReg = document.getElementById("lfsrReg");
+                                        let lfsrTaps = document.getElementById("lfsrTaps");
+                                        let lfsrBits = document.getElementById("lfsrBits");
+                                        let lfsrTable = document.getElementById("lfsrTable");
+                                        let lfsrStep = document.getElementById("lfsrStep");
+                                        let lfsrHeadsTails = document.getElementById("lfsrHeadsTails");
+                                        lfsrReg.value = START;
+                                        lfsrTaps.value = "16, 15, 13, 4";
+                                        lfsrBits.value = "16";
+                                        let lfsr = new LSFR(lfsrTable, lfsrStep, lfsrReg, lfsrHeadsTails);
+                                    
+                                        function resetLFSR() {
+                                            lfsr.reset(lfsrReg, lfsrTaps, lfsrBits);
+                                        }
+                                    
+                                        function doStep() {
+                                            lfsr.doStep();
+                                        }
+                                    
+                                        function doTurboStep() {
+                                            lfsr.doTurboStep();
+                                        }
+                                    
+                                        resetLFSR();
+                                    </script>
+
+
+
+
+
+                                    <h2><a name = "bgunicode">Background: Unicode/ASCII Binary Encoding for Text</a></h2>
+
+                                    <p>
+                                        Once you have implemented the LFSR, you can use it to encrypt data.  All data in a computer is represented in binary, but we will focus on text data in this assignment since it is easy to output.  We will use a binary representation of text called <a href = "https://en.wikipedia.org/wiki/UTF-8">UTF-8</a>, which is the most encoding for text on the world wide web.  In UTF-8, each character can be from 1 to 4 bytes long.  To keep things simple, though, we will assume that text uses an "<a href = "https://www.rapidtables.com/code/text/ascii-table.html">ASCII</a> subset" of UTF-8, in which each character is only 7 bits packed into a single byte.  For example, the capital letter <b>A</b> is <code>0x41</code>.  This way, we will ensure that each character is a single byte.
+                                    </p>
+
+                                    <p>
+                                        By default, bitwise operators in Java are performed on the 32-bit <code>int</code> type, so code has been provided to convert an array of bytes corresponding to an ASCII Unicode string into an array of ints in "<a href = "https://en.wikipedia.org/wiki/Endianness">little endian order</a>"; that is, each group of contiguous 4 character bytes is packed into a single int, with the first byte on the right and the last byte on the left.  Below you can see illustrations of a few examples of the conversion, which is done for you.  For those interested, you can refer to the ASCII table <a href = "https://www.rapidtables.com/code/text/ascii-table.html">here</a> to see the hex codes for all ASCII characters.  You will see, among other things, that numbers come before uppercase letters, which come before lowercase letters.
+                                    </p>
+
+                                    <div id="unicodetable">
+                                    <table>
+                                        <tr><td><h3>String</h3></td>
+                                        <td><h4><center>I</center></h4></td><td><h4><center> </center></h4></td><td><h4><center>l</center></h4></td><td><h4><center>o</center></h4></td><td><h4><center>v</center></h4></td><td><h4><center>e</center></h4></td><td><h4><center> </center></h4></td><td><h4><center>C</center></h4></td><td><h4><center>S</center></h4></td><td><h4><center> </center></h4></td><td><h4><center>1</center></h4></td><td><h4><center>7</center></h4></td><td><h4><center>3</center></h4></td><td><h4><center>!</center></h4></td></tr>
+                                        <tr><td><h3>Unicode</h3></td>
+                                        <td><h4>0x49</h4></td><td><h4>0x20</h4></td><td><h4>0x6c</h4></td><td><h4>0x6f</h4></td><td><h4>0x76</h4></td><td><h4>0x65</h4></td><td><h4>0x20</h4></td><td><h4>0x43</h4></td><td><h4>0x53</h4></td><td><h4>0x20</h4></td><td><h4>0x31</h4></td><td><h4>0x37</h4></td><td><h4>0x33</h4></td><td><h4>0x21</h4></td></tr>
+                                        <tr><td><h3>Little Endian ints</h3></td>
+                                        <td colspan=4><center><h4>0x6f6c2049</h4></center></td><td colspan=4><center><h4>0x43206576</h4></center></td><td colspan=4><center><h4>0x37312053</h4></center></td><td colspan=4><center><h4>0x2133</h4></center></td></tr>
+                                        </table>
+                                    </div>
+
+
+                                    <table border=1 cellpadding=5>
+                                        <tr><td><h3>String</h3></td>
+                                        <td><h4><center>L</center></h4></td><td><h4><center>e</center></h4></td><td><h4><center>t</center></h4></td><td><h4><center>'</center></h4></td><td><h4><center>s</center></h4></td><td><h4><center> </center></h4></td><td><h4><center>s</center></h4></td><td><h4><center>e</center></h4></td><td><h4><center>n</center></h4></td><td><h4><center>d</center></h4></td><td><h4><center> </center></h4></td><td><h4><center>s</center></h4></td><td><h4><center>e</center></h4></td><td><h4><center>c</center></h4></td><td><h4><center>r</center></h4></td><td><h4><center>e</center></h4></td><td><h4><center>t</center></h4></td><td><h4><center>s</center></h4></td></tr>
+                                        <tr><td><h3>Unicode</h3></td>
+                                        <td><h4>0x4c</h4></td><td><h4>0x65</h4></td><td><h4>0x74</h4></td><td><h4>0x27</h4></td><td><h4>0x73</h4></td><td><h4>0x20</h4></td><td><h4>0x73</h4></td><td><h4>0x65</h4></td><td><h4>0x6e</h4></td><td><h4>0x64</h4></td><td><h4>0x20</h4></td><td><h4>0x73</h4></td><td><h4>0x65</h4></td><td><h4>0x63</h4></td><td><h4>0x72</h4></td><td><h4>0x65</h4></td><td><h4>0x74</h4></td><td><h4>0x73</h4></td></tr>
+                                        <tr><td><h3>Little Endian ints</h3></td>
+                                        <td colspan=4><center><h4>0x2774654c</h4></center></td><td colspan=4><center><h4>0x65732073</h4></center></td><td colspan=4><center><h4>0x7320646e</h4></center></td><td colspan=4><center><h4>0x65726365</h4></center></td><td colspan=4><center><h4>0x7374</h4></center></td></tr>
+                                        </table>
+                                        
+
+                                    <h2><a name = "bgxor">Background: XOR Encryption</a></h2>
+
+                                    <p>
+                                        Recall in the <a href = "https://web.microsoftstream.com/video/ebb3c142-bebd-4d22-8526-5fc1c406a1d4">video module</a> and in our lectures (<a href = "https://web.microsoftstream.com/video/9821339c-7efb-4fd9-8d63-0a29b205b3c0">section A</a> and <a href = "https://web.microsoftstream.com/video/09487b26-e66c-4247-a12a-0b2ed14da590">section B</a>) that if you XOR a bit string with the same bit string twice, you get back to where you started.  For example
+                                    </p>
+                                    
+                                    <p>
+                                        <code>0x1234 ^ 0xFACE = 0xE8FA</code>
+                                    </p>
+
+                                    <p>
+                                        and then
+                                    </p>
+
+                                    <p>
+                                        <code>0xE8FA ^ 0xFACE = 0x1234</code>
+                                    </p>
+
+                                    <p>
+                                        In this assignment, you will create a pseudorandom array of ints using the LFSR, and you will xor the ints representing your message with this random sequence of ints to obtain your cipher text.
+                                    </p>
+                                    
+
+                                    <h2><a name = "code">Code To Write</a></h2>
+
+                                    <h2>Part 1: (8 pts)</h2> 
+                                    <h3>
+                                       <code>public static int getLFSRBit(int lfsr, int[] taps)</code>
+                                    </h3>
+
+                                    <p>
+                                        The first step is to implement a method which computes the next bit that will come out of a 32-bit LFSR (represented by an <code>int</code>) with a particular set of taps.  For example, if you test it with the taps in the <a href = "#bglfsr">LFSR example</a>, you should obtain bits 0, 0, 1, 1, from the first 4 LFSR states <code>0xFACE</code>, <code>0xF59C</code>, <code>0xEB38</code>, and <code>0xD761</code>, respectively.  The code below will do this if your method is working properly, though you should test it on more of your own examples before moving on (and you can use the <a href = "#bglfsr">LFSR simulator above</a> to help).
+                                    </p>
+
+                                    <script type="syntaxhighlighter" class="brush: cpp"><![CDATA[
+                                        int[] taps = {16, 15, 13, 4};
+
+                                        int initial = 0xFACE;
+                                        int bit = getLFSRBit(initial, taps); // This should be a 0
+                                        System.out.print(bit);
+
+                                        initial = 0xF59C;
+                                        bit = getLFSRBit(initial, taps); // This should be a 0
+                                        System.out.print(bit);
+
+                                        initial = 0xEB38;
+                                        bit = getLFSRBit(initial, taps); // This should be a 1
+                                        System.out.print(bit);
+
+                                        initial = 0xD761;
+                                        bit = getLFSRBit(initial, taps); // This should be a 1
+                                        System.out.print(bit);
+                                    ]]></script>  
+
+                                    <div id = "tips">
+                                        <h3>Tips</h3>
+                                        <ul>
+                                            <li>By convention, a tap at the first position is at a 1, not a 0.  So you should be careful how much you choose to left shift or right shift.  For instance, right shifting by 1 will place the bit in position 2 at position 1.</li>
+                                        </ul>
+                                    </div>
+
+
+                                    <h2>Part 2: (8 pts)</h2>
+                                    <h3>
+                                        <code>public static int cycleLFSRBy32Bits(int initial, int[] taps)</code>
+                                    </h3>
+
+                                    <p>
+                                        Once you are able to compute the next bit in an LFSR using your <code>getLFSRBit</code> method, you should use to cycle through the LFSR 32 times.  After 32 cycles, the LFSR will contain a new random integer.  You will the XOR a sequence of such integers with the ints representing your data in the next section
+                                    </p>
+
+                                    <div id = "tips">
+                                        <h3>Tips</h3>
+                                        <ul>
+                                            <li>
+                                                First, devise code to perform one full step of the LFSR.  Use <code>getLFSR</code> to compute the bit, then shift by 1 to the left, and place that bit in the rightmost position.  Once you've done this, simply place that code in a loop that loops 32 times.
+                                            </li>
+                                            <li>
+                                                For an example, set the <a href = "#bglfsr">app above</a> to use some initial state and taps <b>with 32 bits</b>, and then hit "turbo" 32 times.  The bit string that you get is the number that you should end up with.  You can use code from the <a href = "https://github.com/Ursinus-CS173-S2020/Coderoundup_Lab8">lab 8 code roundup</a> to print the result out as a bit string.
+                                            </li>
+                                        </ul>
+                                    </div>
+
+
+                                    <h2>Part 3 (8 pts)</h2>
+
+                                    <h3><code>public static int[] encryptDecryptIntArray(int initial, int[] taps, int[] input)</code></h3>
+
+                                    <p>
+                                        We are now finally ready to put all of the pieces together!  In this method, you should generate a sequence of random ints using your <code>cycleLFSRBy32Bits</code> over and over again, and you will XOR each element in the <code>input</code> array with each one of these ints.  The initial state is passed in as the variable <code>initial</code>, and the first int you XOR with should be the result of a 32-bit cycle.  All subsequent ints should be the result of performing a cycle starting with the int from the last loop iteration.
+                                    </p>
+                                    <p>
+                                        Some examples have been provided with the code in the <code>Examples/</code> directory at the root of your project, and you should test all of them.  
+                                    
+                                    <h3>Example 1:</h3>
+                                    
+                                    As a first example, I encrypted the string "Welcome To CS 173!" with the following code:
+                                        <script type="syntaxhighlighter" class="brush: cpp"><![CDATA[
+                                            int[] taps = {32, 22, 2, 1};
+                                            int initial = 173;
+                                            String s = "Welcome to CS 173!";
+                                            encryptDecryptStringAndSave(s, "Examples/welcome.txt", initial, taps);
+                                        ]]></script>  
+                                    </p>
+
+                                    <p>
+                                        We use 173 and the taps 32, 22, 2, and 1 as our "password."  We will not be able to decrypt <code>Examples/welcome.txt</code> if we do not use these.  These taps were obtained from <a href = "https://www.xilinx.com/support/documentation/application_notes/xapp052.pdf">this document</a> to ensure that the LFSR will be "as random as possible," which means that the register will shift through all possible 32-bit states before returning to the initial state.
+                                    </p>
+
+                                    <p>
+                                        <a href = "Examples/welcome.txt">Click here</a> to see the encrypted string that the above code generated in a working implementation.  You'll notice that it doesn't look at anything like the original text, which is good, since we were trying to hide it.  If you use the correct "password" (intial state and taps), though, you should be able to decrypt it.  Once you finish your implementation, run the code below and make sure you can get the message back.  Also, see what happens if you use an initial state other than <code>173</code>
+                                        <script type="syntaxhighlighter" class="brush: cpp"><![CDATA[
+                                            int[] taps = {32, 22, 2, 1};
+                                            int initial = 173;
+                                            String filename = "Examples/welcome.txt";
+                                            System.out.println(decryptFile(filename, initial, taps));
+                                        ]]></script>  
+
+                                    </p>
+                                        
+                                    <h3>Example 2:</h3>
+                                    <p>
+                                        Let's now encrypt the text "I can't feel my face when I'm with you" using the initial state <code>0xFACE</code> and the taps 31, 6, 5, and 1 as our password.  These taps were obtained from <a href = "http://www.ijera.com/papers/Vol4_issue6/Version%206/P0460699102.pdf">this paper</a>.  The encrypted file <code>Examples/face.txt</code> was created this way with a working implementation using the code below
+                                    </p>
+                                            
+
+                                        <script type="syntaxhighlighter" class="brush: cpp"><![CDATA[
+                                            int[] taps = {31, 6, 5, 1};
+                                            int initial = 0xFACE;
+                                            String s = "I can't feel my face when I'm with you";
+                                            encryptDecryptStringAndSave(s, "Examples/face.txt", initial, taps);
+                                        ]]></script>  
+
+                                    <p>
+                                        <a href = "Examples/face.txt">Click here</a> to see the encrypted string that the above code generated in a working implementation.  Try to decrypt it using the code below.  Notice what happens if you use the wrong taps or the wrong initial state.
+
+
+                                        <script type="syntaxhighlighter" class="brush: cpp"><![CDATA[
+                                            int[] taps = {31, 6, 5, 1};
+                                            int initial = 0xFACE;
+                                            String filename = "Examples/face.txt";
+                                            System.out.println(decryptFile(filename, initial, taps));
+                                        ]]></script>  
+
+                                    </p>
+
+                                    <h3>Example 3:</h3>
+
+                                    <p>
+                                        Finally, I have encrypted an English translation of <i>The Ilyad</i> using the initial state of 24 (since there are 24 books in <i>The Ilyad</i>), along with the taps 32, 11, 8, 7, 5, 3.  <a href = "Examples/Ilyad.txt">Click here</a> to see the encrypted text. Verify that you are able to decrypt the text in <code>Examples/Ilyad.txt</code> using that initial state and those taps.  (<b>NOTE:</b> You need not read <i>The Ilyad</i> in your console!  Simply verify that the output is sensible)
+                                    </p>
+
+
+
+                                    
+                                    <h2>
+                                        <a name = "part4">Part 4: Encrypting your own message (4 Pts)</a>
+                                    </h2>
+                                    <p>
+                                        Dr. <a href = "https://users.ece.cmu.edu/~koopman/">Philip Koopman</a> at Carnegie Mellon has generated a text file with some taps which are optimal for 32-bit LFSRs, which means that the LFSR starting with a nonzero initial state will visit all possible nonzero 32 bit states before cycling back.  <a href = "https://users.ece.cmu.edu/~koopman/lfsr/32.txt">Click here</a> to see a text file with the first 32 of these.  The taps are described in hex.  A 1 in a particular position means that position is a tap.  For instance, in the Ilyad text above, I used the hex string <code>0x800004D4</code> from his table, which has taps at positions 3, 5, 7, 8, 11, and 32.
+                                    </p>
+
+                                    <p>
+                                        In this part of the assignment, you must use your program to encrypt a string that says your name and your section, using the taps from a different example in <a href = "https://users.ece.cmu.edu/~koopman/lfsr/32.txt">Dr. Koopman's list</a>.  Choose your favorite number or some interesting number as your initial state, and create an encrypted text file using the <code>encryptDecryptStringAndSave</code> method.  Please indicate on Canvas the initial state you used and the hext string you used for your taps.
+                                    </p>
+                                    
+                                    <h2>
+                                        Part 5: Style (2 Points)
+                                    </h2>
+
+                                    <p>
+                                        You must adhere to the <a href = "../../style.html">style guide</a> to receive full credit here.
+                                    </p>
+                                    
+
+                                    
+                                </p>
+                                </div>
+						</div>
+					</div>
+
+					<!--LaTeX in Javascript!-->
+					<script src="../../../../jsMath/easy/load.js"></script>
+					<!--Syntax highlighting in Javascript!-->
+					<script type="text/javascript" src="../../../../syntaxhighlighter/scripts/shCore.js"></script>
+					<script type="text/javascript" src="../../../syntaxhighlighter/scripts/shBrushJScript.js"></script>
+					<script type="text/javascript" src="../../../../syntaxhighlighter/scripts/shBrushCpp.js"></script>
+					<script type="text/javascript" src="../../../../syntaxhighlighter/scripts/shBrushMatlabSimple.js"></script>
+					<script type="text/javascript" src="../../../../syntaxhighlighter/scripts/shBrushPython.js"></script>
+					<link type="text/css" rel="stylesheet" href="../../../../syntaxhighlighter/styles/shCoreDefault.css"/>
+					<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="../../index.html">General</a></li>
+										<li><a href = "../../Software/index.html">Software</a></li>
+										<li><a href = "../../Schedule/index.html">Schedule</a></li>
+										<li><a href = "../../style.html">Style Guide</a></li>
+                                        <li>
+											<span class="opener">Labs</span>
+											<ul>
+												<li><a href = "../../Labs/index.html">Main Labs Page</a></li>
+												<li>
+													<ul>
+                                                        <li><a href = "../../Labs/Lab1/index.html">Lab1: Kepler's Third Law</a></li>
+                                                        <li><a href = "../../Labs/Lab2_LeapYears/index.html">Lab2: Leap Years and JUnit</a></li>
+                                                        <li><a href = "../../Labs/Lab4_EpochOverflow/index.html">Lab4: Epoch Time Overflow</a></li>
+                                                        <li><a href = "../../Labs/Lab5_Arrays/index.html">Lab5: Weighted Average, Min Index</a></li>
+                                                        <li><a href = "../../Labs/Lab6_Filtering/index.html">Lab6: Audio Filtering</a></li>
+                                                        <li><a href = "../../Labs/Lab7_COVID19/index.html">Lab7: Epidemic Spreading / Flattening The Curve</a></li>
+                                                        <li><a href = "../../Labs/Lab8_BinaryStrings/index.html">Lab8: Binary Strings</a></li>
+                                                        <li><a href = "../../Labs/Lab9_TicTacToe/index.html">Lab9: Tic Tac Toe</a></li>
+                                                        <li><a href = "../../Modules/Lab10_InsertionSort/video1.html">Lab10: Insertion Sort</a></li>
+                                                        <li><a href = "../../Modules/Lab11_Recursion/video1.html">Lab11: Recursion And Merge Sort</a></li>
+                                                    </ul>
+												</li>
+											</ul>
+										</li>
+                                        <li>
+											<span class="opener">Assignments</span>
+											<ul>
+												<li><a href = "../../Assignments/index.html">Main Assignments Page</a></li>
+												<li>
+													<ul>
+                                                        <li><a href = "../../Assignments/HW0/index.html">HW0: Warmup</a></li>
+                                                        <li><a href = "../../Assignments/HW1/index.html">HW1: Evergreen Field Trip</a></li>
+                                                        <li><a href = "../../Assignments/HW2_FinancialAidCalculation/index.html">HW2: Financial Aid Calculation</a></li>
+                                                        <li><a href = "../../Assignments/HW3_WeekdayCalculator/index.html">HW3: Weekday Calculator</a></li>
+                                                        <li><a href = "../../Assignments/HW4_ChaosGame/index.html">HW4: The Chaos Game</a></li>
+                                                        <li><a href = "../../Assignments/HW5_GuitarStringSynth/index.html">HW5: Guitar String Synthesis</a></li>
+                                                        <li><a href = "../../Assignments/HW6_PseudoRandomCrypto/index.html">HW6: Spy Games</a></li>
+                                                        <li><a href = "../../Assignments/HW7_ASCIIArt/index.html">HW7: ASCII Art</a></li>
+                                                        <li><a href = "../../Assignments/HW8_NintendoAmerica/index.html">HW8: Nintendo America</a></li>
+                                                    </ul>
+												</li>
+											</ul>
+										</li>
+										<!--<li><a href = "../../Raffle/index.html">Raffle</a></li>!-->
+									</ul>
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<div class="mini-posts">
+										Announcements		
+										<ul>
+										<li><a href = "../../Assignments/HW7_ASCIIArt/artcontest.html">Art contest submissions</a> for <a href = "../../Assignments/HW7_ASCIIArt/index.html">HW7</a> are up!</li>
+										</ul>								
+                                    </div>
+								</section>
+
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; <a href = "http://www.ctralie.com">Christopher J. Tralie</a>. All rights reserved.  Contact chris.tralie@gmail.com. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+			
+            <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+            <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>		
+			
+            <!-- Start of StatCounter Code -->
+            <script type="text/javascript">
+            var sc_project=7309088; 
+            var sc_invisible=1; 
+            var sc_security="f655b56d"; 
+            </script>
+            <script type="text/javascript"
+            src="http://www.statcounter.com/counter/counter.js"></script>
+            <noscript><div class="statcounter"><a title="free hit counter"
+            href="http://statcounter.com/" target="_blank"><img class="statcounter"
+            src="http://c.statcounter.com/7309088/0/f655b56d/1/" alt="free hit
+            counter"></a></div></noscript>
+            <!-- End of StatCounter Code -->
+<!-- End Sidebar !-->
+
+<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/skel.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="../../assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="../../assets/js/main.js"></script>
+<!-- End Scripts -->
+	</bo
