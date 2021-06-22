@@ -1,0 +1,591 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<!-- Header !-->
+	<head>
+		<title>Ursinus CS 173: Introduction To Computer Science, Spring 2020</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="../../assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="../../assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="../../assets/css/ie8.css" /><![endif]-->
+        <style>
+        .image_off, #home:hover .image_on{
+           display:none
+        }
+        .image_on, #home:hover .image_off{
+           display:block
+        }
+        </style>
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="../../index.html" class="logo"><strong>Ursinus CS 173: Introduction To Computer Science, Spring 2020</strong></a>
+								</header>
+<!-- End Header !-->
+
+                            <!-- Content -->
+                                <section>
+									<header class="main">
+                                        <h2>Assignment 8: Nintendo America (30 Points)</h2>
+                                        <h3><a href = "http://www.ctralie.com">Chris Tralie</a></h3>
+                                        <h3>Due Friday 5/8/2020</h3>
+									</header>
+
+									<div id="page-content">
+                                        <BR><BR>
+                                        <h2>Overview / Logistics</h2>
+										<p>
+                                            This is the final assignment in this spring's CS 173 class, and it will serve as a segue into CS 174.  The purpose of this assignment is to get you practice with classes, objects, and some of the basic data structures we talked about in the most recent modules: namely <code>ArrayList</code> and <code>HashMap</code>.   In particular, you will be extracting information from a collection of about 2000 tweets from the <a href = "https://twitter.com/NintendoAmerica">Nintendo America</a> twitter account between October 2018 and this month.
+                                        </p>
+
+                                        <p>
+                                        <a href = "https://github.com/Ursinus-CS173-S2020/HW8_NintendoAmerica/archive/master.zip">Click here</a> to download the skeleton code for this assignment.  You will be editing <code>src/Tweet.java</code>.
+                                        
+                                        <h3><a name = "readme">What to submit</a>:</h3>
+                                        <p> <b>When you are finished, you should submit <code>Tweet.java</code> to Canvas.  Please also submit answers to the following questions:</b> (you can simply number your answers from 1 to 6 as a comment on Canvas)
+                                        </p>
+                                        <p>
+                                            <ol>
+                                                <li>
+                                                    Did you work with a buddy on this assignment?  If so, who?
+                                                </li>
+                                                <li>
+                                                    Did you use any resources outside of the class textbook and provided links to help you complete the assignment?  Please list them here.
+                                                </li>
+                                                <li>
+                                                    Are you using up any grace points to buy lateness days?  If so, how many?
+                                                </li>
+                                                <li>
+                                                    Approximately how many hours it took you to finish this assignment (<i>I will not judge you for this at all...I am simply using it to gauge if the assignments are too easy or hard</i>)
+                                                </li>
+                                                <li>
+                                                    Your overall impression of the assignment. Did you love it, hate it, or were you neutral? One word answers are fine, but if you have any suggestions for the future let me know.
+                                                </li>
+                                                <li>
+                                                    Any other concerns that you have. For instance, if you have a bug that you were unable to solve but you made progress, write that here. The more you articulate the problem the more partial credit you will receive (fine to leave this blank)
+                                                </li>
+                                            </ol>
+                                        </p>
+
+                                    <h2><a name = "tostring">Part 1: The <code>Tweet</code> object and <code>toString() </code> (5 Points)</a></h2>
+
+                                    <p>
+                                        At this point, you should familiarize yourself with the <code>Tweet</code> class.  A static method  <code>getAllTweets</code> has been provided to load in all of the tweets into an array.
+                                    </p>
+
+                                    <p>
+                                    In the first task, you should create a <code>toString()</code> method of the <code>Tweet</code> class, so that all of the information about a tweet is returned in an organized, printable fashion.  The string should be formatted as follows:
+                                        
+<pre>
+date, time
+retweets =  number of retweets
+likes =  number of likes
+text
+</pre>
+
+You should then fill in a loop in the <code>printFirstFive</code> method to loop through and print the first five tweets.  If you've done this properly, you should see the output below.  Note how they're not in any particular order.  We will address this in the next task.
+                                    </p>
+                                    
+
+<table><tr><td>
+<pre>
+    2018/10/04, 16:40:06
+    retweets: 148
+    likes: 880
+    The raid event Loyalty's Requiem is now available in #DragaliaLost! This marks the appearance of Celiera, an adventurer who will join your party if you increase your Friendship level with her. 
+    
+    2019/10/08, 18:59:28
+    retweets: 303
+    likes: 2403
+    "Our vision for this game during development was to create a diorama world in which Link would be a 10cm-or-so tall figurine."  Read more from Graphic Refining Director Yoshiki Haruhana on the visuals for the Legend of #Zelda: Link's Awakening.    
+    
+    2019/03/20, 20:30:00
+    retweets: 130
+    likes: 1255
+    Don’t flip out! #CaptainToad: Treasure Tracker – Special Episode turns things upside down with new courses and challenges. Which course is your favorite so far? 
+    
+    2019/02/09, 16:33:29
+    retweets: 138
+    likes: 1250
+    The competition is heating up and the first of the #SmashBrosUltimate #NintendoNAO19 Qualifier Finals are starting in just a half hour! Tune into the stream and see who will be the first to qualify for the Grand Finals at #PAXEast!  📺    
+    
+    2020/03/26, 21:59:22
+    retweets: 346
+    likes: 2304
+    As a special #PokemonSwordShieldEX early-purchase bonus, you can receive Leon’s cap and tights upon release of The Isle of Armor! Select the option to receive a Mystery Gift via the internet when the expansion releases to receive and use the items.   
+    
+</pre>
+</td></tr></table>
+
+
+<h2><a name = "sorting">Part 2: Sorting By Date (6 Points)</code></a></h2>
+
+<p>
+    For the second task, you should create a comparator in the <code>Tweet</code> class to sort the tweets in ascending order of date.  Sort first by the <code>date</code> String, and if there's a tie, sort by the <code>time</code> String.  Once you've done this, use <code>Arrays.sort</code> to sort the array, and print out the first 5 tweets in order, as well as the last tweet, in the <code>printFirstFiveByDate</code> method.  If this worked properly, you should see the tweets below.  Notice how tweet 2-5 tie on the date, but they are sorted properly by time.  Noticed how the last tweet occurred last week (which is when I started creating this assignment)
+</p>
+
+<table><tr><td>
+<pre>
+    2018/10/01, 21:49:14
+    retweets: 439
+    likes: 2912
+    Yoshi and Bowser are keeping the Mushroom Kingdom bakeries busy in the Pie Hard minigame! #SuperMarioParty arrives on #NintendoSwitch 10/5!   
+
+    2018/10/02, 15:00:00
+    retweets: 485
+    likes: 2554
+    The legendary Blue Bomber returns in a new side-scrolling adventure that blends classic, challenging 2D platforming action with a fresh look. Mega Man 11 for #NintendoSwitch is available now!  
+
+    2018/10/02, 16:00:40
+    retweets: 77
+    likes: 621
+    The #FEHeroes Voting Gauntlet: Fathers and Daughters is here! During the event you can also earn Battle Flags along with Orbs, Sacred Coins, and Refining Stones via quests.  View current status of the event here:  
+
+    2018/10/02, 17:30:05
+    retweets: 66
+    likes: 590
+    See which creations were selected as Grand Prize winners for the #NintendoLabo Creators Contest No. 2!   
+
+    2018/10/02, 18:00:00
+    retweets: 742
+    likes: 4376
+    It’s almost game time! #SuperMarioParty launches on #NintendoSwitch in just 3 days! 
+
+
+    ...
+
+    2020/04/21, 20:31:56
+    retweets: 1168
+    likes: 8829
+    The Nature Day event runs from 4/23 to 5/4, and it’s a great opportunity to help your island flourish with foliage! Fulfill special limited time Nature Day activities to earn extra Nook Miles, like planting shrub starts, water plants, and more. #ACNH #AnimalCrossing 
+</pre>
+</td></tr></table>
+
+
+
+
+                    <div id = "tips">
+                        <h3>Tips</h3>
+                        <ul>
+                            <li>You may want to go back and review the <a href = "../../Modules/ComparatorModule/video1.html">module on comparators and sorting</a>.
+                            </li>
+                            <li>
+                                The <code>String</code> class has a built-in comparator, so you should at some point call <code>s1.compareTo(s2)</code>, where <code>s1</code> and <code>s2</code> are some strings.
+                            </li>
+                        </ul>
+                    </div>
+
+
+
+                    <h2><a name = "likes">Part 3: Most/Least Popular Tweets (7 Points)</a></h2>
+                    <p>
+                        In this part of the assignment, you should fill in the <code>getMostPopularTweet</code> method to return the tweet with the most likes.  Then, create a similar method <code>getLeastPopularTweet</code> to return the one with the least likes.  To check to make sure this works correctly, the most popular tweet should have over 350,000 likes, while the least popular one should have under 300.
+                    </p>
+
+
+
+
+
+
+                            <h2><a name = "words">Part 4: Most Used Words (12 Points)</code></a></h2>
+
+                            <p>
+                               In this part of the assignment, you should print out the top 200 most used words across the text of all tweets.  The easiest way to do this is to use a <code>HashMap</code> whose key is a word and whose value is the number of times that word showed up across all tweets (i.e. the "word count").  To fill in this map, loop through all of the words across all tweets (see the <a href = "#loophint">hint below</a> on how to setup such a loop).  If you've seen the word key before, change the value to be previous count plus 1.  Otherwise, if this is your first time seeing it, create an entry for the word in the map, and initialize its count to be 1.
+                            </p>
+                            <p>
+                                Once you're finished filling out the map, you can copy all of the information from the map over to an array.  It's easiest if you create a new class (e.g. <code>class Word</code>) with a private member variable for the word and a private member variable for the count, and then you have a comparator that sorts in decreasing order by the count.  Then, you can use <code>Arrays.sort</code> to sort the array of words.
+                            </p>
+
+                            <p>
+                                If you've done this properly and followed the hints below, then the most 200 used words, in descending order of count, should be as below.  Notice how the most used words are pretty standard filler words (the/and/to/in/of/..), but that they start to become more topical after this.
+                            </p>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <pre>
+the: 3377
+and: 1854
+to: 1841
+in: 1497
+of: 1412
+a: 1282
+on: 1130
+for: 879
+your: 771
+you: 708
+with: 695
+is: 585
+new: 523
+#nintendoswitch: 469
+this: 448
+from: 387
+available: 381
+at: 342
+now: 329
+be: 315
+are: 311
+nintendo: 306
+will: 287
+out: 251
+game: 240
+as: 232
+can: 232
+get: 231
+up: 225
+games: 219
+when: 217
+some: 216
+#nintendoswitch!: 202
+have: 189
+more: 187
+all: 186
+special: 180
+or: 179
+by: 172
+play: 171
+                                        </pre>
+                                    </td>
+                                    <td>
+<pre>
+that: 171
+an: 169
+pokémon: 149
+it: 147
+super: 145
+has: 138
+what: 133
+coming: 132
+check: 125
+three: 121
+take: 118
+one: 117
+about: 116
+kit: 115
+legend: 113
+–: 109
+ready: 106
+into: 106
+time: 103
+his: 99
+world: 98
+like: 98
+sure: 95
+battle: 95
+it’s: 94
+now!: 94
+their: 94
+find: 94
+adventure: 93
+but: 92
+if: 91
+see: 91
+off: 90
+through: 89
+just: 88
+-: 86
+team: 86
+way: 86
+#smashbrosultimate: 86
+join: 86
+</pre>
+                                    </td>
+<td>
+    <pre>
+#feheroes: 85
+which: 84
+make: 83
+how: 83
+krysta: 83
+who: 81
+you’ll: 80
+#zelda:: 80
+latest: 80
+also: 79
+episode: 78
+experience: 78
+#fireemblem:: 76
+fun: 75
+hero: 75
+first: 74
+look: 72
+learn: 72
+we: 72
+heroes: 72
+watch: 71
+so: 71
+day: 70
+only: 70
+free: 69
+back: 68
+they: 66
+know: 66
+been: 66
+action: 66
+#nintendoswitch.: 65
+great: 65
+pt: 65
+mario: 65
+you’re: 65
+#supermariomaker2: 65
+even: 65
+friends: 64
+tune: 64
+them: 63
+    </pre>
+</td>
+<td>
+<pre>
+comes: 63
+ultimate: 61
+island: 60
+use: 60
+#eshop!: 60
+releases: 59
+featuring: 59
+#pokemonswordshield: 59
+favorite: 59
+chance: 59
+these: 58
+start: 57
+don’t: 57
+3: 56
+its: 56
+full: 56
+launches: 56
+here:: 56
+during: 56
+set: 56
+save: 55
+#animalcrossing:: 55
+black: 54
+next: 54
+help: 54
+#nintendotreehouselive: 53
+pre-purchase: 53
+fight: 53
+online: 53
+other: 53
+over: 53
+week’s: 52
+#nintendoswitchonline: 52
+#indieworld: 51
+system: 51
+do: 50
+arrives: 50
+event: 50
+until: 50
+link’s: 49
+</pre>
+</td>
+<td>
+    <pre>
+most: 49
+go: 48
+houses: 48
+own: 48
+edition: 48
+story: 48
+there’s: 48
+share: 47
+explore: 47
+looking: 47
+starting: 47
+#nintendopower: 47
+playing: 47
+2019: 47
+definitive: 47
+might: 46
+legendary: 46
+he: 45
+there: 45
+fire: 45
+celebrate: 45
+3:: 44
+stop: 44
+today: 44
+#nintendominute: 44
+indie: 44
+exclusively: 44
+switch: 44
+including: 43
+two: 43
+alliance: 43
+everyone: 43
+together: 43
+age: 43
+vr: 42
+download: 42
+characters: 42
+galar: 42
+4: 41
+dlc: 41
+    </pre>
+</td>
+                                </tr>
+                            </table>
+
+                            <div id = "tips">
+                                <h3>Tips</h3>
+                                <ul>
+                                    <li>
+                                        <a name = "loophint">Loop Hint: </a>We want each word to be lowercase so that it gets counted as the same word regardless of capitalization.  Here's how you should start off a loop that pulls out the lowercase version of every word in every tweet, and which also takes care of empty words
+<script type="syntaxhighlighter" class="brush: cpp"><![CDATA[
+for (int i = 0; i < tweets.length; i++) {
+    String text = tweets[i].text;
+    String[] words = text.split(" ");
+    for (int j = 0; j < words.length; j++) {
+        String word = words[j];
+        word = word.toLowerCase();
+        if (word.length() > 0) {
+            // TODO: Finish this.  Keep a running count of how many times
+            // each word shows up
+        }
+    }
+}
+]]></script><BR><BR>
+                                    </li>
+
+                                    <li>
+                                        Recall that for some <code>HashMap</code> <code>map</code>HashMap</code>>
+<script type="syntaxhighlighter" class="brush: cpp"><![CDATA[
+ArrayList<Type> keyList = new ArrayList<>(map.keySet());
+]]></script>  
+                                    will create an <code>ArrayList</code> that contains all of the keys in a <code>HashMap</code>.  You can use this to pull out a full "vocabulary" of all of the words used across all tweets.  Here, type is most likely <code>String</code>, since your map should have a <code>String</code> as a key and an <code>Integer</code> as a value.<BR><BR>
+                                    </li>
+                                </ul>
+                            </div>
+
+
+                            </div>
+                    </div>
+                </div>
+
+					<!--LaTeX in Javascript!-->
+					<script src="../../../../jsMath/easy/load.js"></script>
+					<!--Syntax highlighting in Javascript!-->
+					<script type="text/javascript" src="../../../../syntaxhighlighter/scripts/shCore.js"></script>
+					<script type="text/javascript" src="../../../syntaxhighlighter/scripts/shBrushJScript.js"></script>
+					<script type="text/javascript" src="../../../../syntaxhighlighter/scripts/shBrushCpp.js"></script>
+					<script type="text/javascript" src="../../../../syntaxhighlighter/scripts/shBrushMatlabSimple.js"></script>
+					<script type="text/javascript" src="../../../../syntaxhighlighter/scripts/shBrushPython.js"></script>
+					<link type="text/css" rel="stylesheet" href="../../../../syntaxhighlighter/styles/shCoreDefault.css"/>
+					<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="../../index.html">General</a></li>
+										<li><a href = "../../Software/index.html">Software</a></li>
+										<li><a href = "../../Schedule/index.html">Schedule</a></li>
+										<li><a href = "../../style.html">Style Guide</a></li>
+                                        <li>
+											<span class="opener">Labs</span>
+											<ul>
+												<li><a href = "../../Labs/index.html">Main Labs Page</a></li>
+												<li>
+													<ul>
+                                                        <li><a href = "../../Labs/Lab1/index.html">Lab1: Kepler's Third Law</a></li>
+                                                        <li><a href = "../../Labs/Lab2_LeapYears/index.html">Lab2: Leap Years and JUnit</a></li>
+                                                        <li><a href = "../../Labs/Lab4_EpochOverflow/index.html">Lab4: Epoch Time Overflow</a></li>
+                                                        <li><a href = "../../Labs/Lab5_Arrays/index.html">Lab5: Weighted Average, Min Index</a></li>
+                                                        <li><a href = "../../Labs/Lab6_Filtering/index.html">Lab6: Audio Filtering</a></li>
+                                                        <li><a href = "../../Labs/Lab7_COVID19/index.html">Lab7: Epidemic Spreading / Flattening The Curve</a></li>
+                                                        <li><a href = "../../Labs/Lab8_BinaryStrings/index.html">Lab8: Binary Strings</a></li>
+                                                        <li><a href = "../../Labs/Lab9_TicTacToe/index.html">Lab9: Tic Tac Toe</a></li>
+                                                        <li><a href = "../../Modules/Lab10_InsertionSort/video1.html">Lab10: Insertion Sort</a></li>
+                                                        <li><a href = "../../Modules/Lab11_Recursion/video1.html">Lab11: Recursion And Merge Sort</a></li>
+                                                    </ul>
+												</li>
+											</ul>
+										</li>
+                                        <li>
+											<span class="opener">Assignments</span>
+											<ul>
+												<li><a href = "../../Assignments/index.html">Main Assignments Page</a></li>
+												<li>
+													<ul>
+                                                        <li><a href = "../../Assignments/HW0/index.html">HW0: Warmup</a></li>
+                                                        <li><a href = "../../Assignments/HW1/index.html">HW1: Evergreen Field Trip</a></li>
+                                                        <li><a href = "../../Assignments/HW2_FinancialAidCalculation/index.html">HW2: Financial Aid Calculation</a></li>
+                                                        <li><a href = "../../Assignments/HW3_WeekdayCalculator/index.html">HW3: Weekday Calculator</a></li>
+                                                        <li><a href = "../../Assignments/HW4_ChaosGame/index.html">HW4: The Chaos Game</a></li>
+                                                        <li><a href = "../../Assignments/HW5_GuitarStringSynth/index.html">HW5: Guitar String Synthesis</a></li>
+                                                        <li><a href = "../../Assignments/HW6_PseudoRandomCrypto/index.html">HW6: Spy Games</a></li>
+                                                        <li><a href = "../../Assignments/HW7_ASCIIArt/index.html">HW7: ASCII Art</a></li>
+                                                        <li><a href = "../../Assignments/HW8_NintendoAmerica/index.html">HW8: Nintendo America</a></li>
+                                                    </ul>
+												</li>
+											</ul>
+										</li>
+										<!--<li><a href = "../../Raffle/index.html">Raffle</a></li>!-->
+									</ul>
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<div class="mini-posts">
+										Announcements		
+										<ul>
+										<li><a href = "../../Assignments/HW7_ASCIIArt/artcontest.html">Art contest submissions</a> for <a href = "../../Assignments/HW7_ASCIIArt/index.html">HW7</a> are up!</li>
+										</ul>								
+                                    </div>
+								</section>
+
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; <a href = "http://www.ctralie.com">Christopher J. Tralie</a>. All rights reserved.  Contact chris.tralie@gmail.com. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+			
+            <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+            <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>		
+			
+            <!-- Start of StatCounter Code -->
+            <script type="text/javascript">
+            var sc_project=7309088; 
+            var sc_invisible=1; 
+            var sc_security="f655b56d"; 
+            </script>
+            <script type="text/javascript"
+            src="http://www.statcounter.com/counter/counter.js"></script>
+            <noscript><div class="statcounter"><a title="free hit counter"
+            href="http://statcounter.com/" target="_blank"><img class="statcounter"
+            src="http://c.statcounter.com/7309088/0/f655b56d/1/" alt="free hit
+            counter"></a></div></noscript>
+            <!-- End of StatCounter Code -->
+<!-- End Sidebar !-->
+
+<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/skel.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="../../assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="../../assets/js/main.js"></script>
+<!-- End Scripts -->
+	</bo

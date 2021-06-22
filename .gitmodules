@@ -43,3 +43,6 @@
 [submodule "Assignments/HW6_PseudoRandomCrypto/Week8_Binary"]
 	path = Assignments/HW6_PseudoRandomCrypto/Week8_Binary
 	url = https://github.com/Ursinus-CS173-S2020/Week8_Binary.git
+[submodule "Assignments/HW8_NintendoAmerica/HW8_NintendoAmerica"]
+	path = Assignments/HW8_NintendoAmerica/HW8_NintendoAmerica
+	url = https://github.com/Ursinus-CS173-S2020/HW8_NintendoAmerica.git
